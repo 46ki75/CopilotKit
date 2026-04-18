@@ -128,11 +128,9 @@ export interface UseInterruptReturn<TValue = unknown, TResult = never> {
  * });
  * ```
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export function useInterrupt<TValue = unknown, TResult = never>(
   config: UseInterruptConfig<TValue, TResult> = {},
 ): UseInterruptReturn<TValue, TResult> {
-  /* eslint-enable @typescript-eslint/no-explicit-any */
   const ctx = useContext(CopilotKitContextId);
   const { agent } = useAgent({ agentId: config.agentId });
 
