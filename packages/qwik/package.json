@@ -41,8 +41,10 @@
   },
   "dependencies": {
     "@ag-ui/client": "0.0.52",
+    "@ag-ui/core": "0.0.52",
     "@copilotkit/core": "workspace:*",
-    "@copilotkit/shared": "workspace:*"
+    "@copilotkit/shared": "workspace:*",
+    "zod": "^3.23.3"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.19.2",
