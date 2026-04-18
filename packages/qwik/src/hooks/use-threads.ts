@@ -192,10 +192,21 @@ export function useThreads({
       selectFromStore(store, ɵselectThreadsIsLoading, isLoadingSig),
       selectFromStore(store, ɵselectThreadsError, errorSig),
       selectFromStore(store, ɵselectHasNextPage, hasMoreThreadsSig),
-      selectFromStore(store, ɵselectIsFetchingNextPage, isFetchingMoreThreadsSig),
+      selectFromStore(
+        store,
+        ɵselectIsFetchingNextPage,
+        isFetchingMoreThreadsSig,
+      ),
       store.select(ɵselectThreads).subscribe((coreThreads) => {
         threadsSig.value = coreThreads.map(
-          ({ id, agentId: threadAgentId, name, archived, createdAt, updatedAt }) => ({
+          ({
+            id,
+            agentId: threadAgentId,
+            name,
+            archived,
+            createdAt,
+            updatedAt,
+          }) => ({
             id,
             agentId: threadAgentId,
             name,
