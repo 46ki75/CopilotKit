@@ -115,6 +115,8 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
     if (!core) return;
 
     // Prefer the "default" agent; fall back to the first registered agent.
+    // Object.values() order is defined for string keys in ES2015+ (insertion order),
+    // which is the minimum target of this package.
     const agent =
       core.getAgent(DEFAULT_AGENT_ID) ??
       (Object.values(core.agents)[0] as AbstractAgent | undefined);
