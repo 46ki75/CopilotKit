@@ -5,6 +5,7 @@ import {
 } from "@builder.io/qwik";
 import { z } from "zod";
 import { ToolCallStatus } from "@copilotkit/core";
+import type Websandbox from "@jetbrains/websandbox";
 import { useSandboxFunctions } from "../context/sandbox-functions-context";
 import {
   processPartialHtml,
@@ -154,8 +155,9 @@ const OpenGenerativeUIActivityRendererInner = component$<InnerProps>(
       if (!container) return;
 
       // All sandbox state as plain (non-reactive) objects
-      let sandbox: any = null;
-      let previewSandbox: any = null;
+      type SandboxInstance = ReturnType<typeof Websandbox.create>;
+      let sandbox: SandboxInstance | null = null;
+      let previewSandbox: SandboxInstance | null = null;
       let previewReady = false;
       let sandboxReady = false;
       let executedIndex = 0;
@@ -408,7 +410,11 @@ const OpenGenerativeUIActivityRendererInner = component$<InnerProps>(
       // Initial content handling
       handleContentUpdate(props.content);
 
-      // Poll for content changes (props.content is not a signal, so we poll)
+      // Poll for incremental content changes rather than using track().
+      // Using track() would cause the entire useVisibleTask$ to re-run (cleanup +
+      // re-execute) on every content update, which destroys and recreates the sandbox.
+      // Polling allows the sandbox to persist while applying incremental changes
+      // (jsFunctions, jsExpressions, preview updates) without teardown.
       let lastContent = props.content;
       const poll = setInterval(() => {
         if (cancelled) return;
