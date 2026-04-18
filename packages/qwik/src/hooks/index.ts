@@ -80,3 +80,4 @@ export {
   useKeyboardHeight,
   type KeyboardState,
 } from "./use-keyboard-height";
+export { useKatexStyles } from "./use-katex-styles";

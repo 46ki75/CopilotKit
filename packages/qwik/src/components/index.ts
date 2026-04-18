@@ -17,6 +17,24 @@ export {
   TooltipTrigger,
   TooltipContent,
 } from "./ui/tooltip";
+export { Button, type ButtonVariant, type ButtonSize } from "./ui/button";
+export {
+  DropdownMenu,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+} from "./ui/dropdown-menu";
 
 // v2 chat components
 export * from "./chat";
