@@ -164,6 +164,13 @@ describe("@copilotkit/qwik module exports", () => {
     expect(typeof mod.CopilotKitCoreQwik).toBe("function");
   });
 
+  // ---- CopilotKitProvider alias ----
+  it("should export CopilotKitProvider from components/copilot-provider", async () => {
+    const mod = await import("../components/copilot-provider");
+    expect(mod.CopilotKitProvider).toBeDefined();
+    expect(mod.CopilotKitProvider).toBe(mod.CopilotKit);
+  });
+
   // ---- Barrel re-exports (hooks index) ----
   it("should re-export all hooks from hooks/index", async () => {
     const mod = await import("../hooks/index");

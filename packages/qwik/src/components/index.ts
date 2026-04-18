@@ -1,4 +1,6 @@
 export { CopilotKit } from "./copilot-provider";
+export type { CopilotKitProviderProps } from "./copilot-provider";
+export { CopilotKitProvider } from "./copilot-provider";
 export type { CopilotChatProps } from "./copilot-chat";
 export { CopilotChat } from "./copilot-chat";
 export {

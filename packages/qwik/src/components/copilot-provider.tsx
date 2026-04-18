@@ -15,6 +15,12 @@ const COPILOT_CLOUD_CHAT_URL = "https://api.cloud.copilotkit.ai/copilotkit/v1";
 const HEADER_PUBLIC_API_KEY = "X-CopilotCloud-Public-Api-Key";
 
 /**
+ * Type alias for `CopilotKitConfig` — mirrors the naming convention used
+ * in the React package (`CopilotKitProviderProps`).
+ */
+export type CopilotKitProviderProps = CopilotKitConfig;
+
+/**
  * The `CopilotKit` component provides the CopilotKit context to its children.
  * It wraps your application (or a sub-tree) and makes the CopilotKit core
  * instance available to all nested hooks and components.
@@ -102,3 +108,9 @@ export const CopilotKit = component$<CopilotKitConfig>((props) => {
 
   return <Slot />;
 });
+
+/**
+ * Alias for `CopilotKit` — mirrors the naming convention used in the React
+ * package (`CopilotKitProvider`). Both names refer to the same component.
+ */
+export const CopilotKitProvider = CopilotKit;
