@@ -3,6 +3,9 @@ import {
   Slot,
   useContextProvider,
   useSignal,
+  useVisibleTask$,
+  type NoSerialize,
+  noSerialize,
 } from "@builder.io/qwik";
 import { CopilotKitCore } from "@copilotkit/core";
 import {
@@ -32,16 +35,28 @@ import {
  */
 export const CopilotKit = component$<CopilotKitConfig>((props) => {
   const isLoading = useSignal(false);
+  const coreRef = useSignal<NoSerialize<CopilotKitCore>>(undefined);
 
-  const core = new CopilotKitCore({
-    runtimeUrl: props.runtimeUrl,
-    headers: props.headers ?? {},
-    credentials: props.credentials,
-    properties: props.properties ?? {},
+  // CopilotKitCore is a non-serializable class instance. We use
+  // useVisibleTask$ to create it once on the client and noSerialize to
+  // prevent Qwik from trying to serialize it.
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(({ cleanup }) => {
+    const core = new CopilotKitCore({
+      runtimeUrl: props.runtimeUrl,
+      headers: props.headers ?? {},
+      credentials: props.credentials,
+      properties: props.properties ?? {},
+    });
+    coreRef.value = noSerialize(core);
+
+    cleanup(() => {
+      coreRef.value = undefined;
+    });
   });
 
   useContextProvider(CopilotKitContextId, {
-    core,
+    coreRef,
     isLoading,
   });
 

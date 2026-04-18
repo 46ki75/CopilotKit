@@ -72,8 +72,11 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
   useVisibleTask$(({ track }) => {
     track(() => props.instructions);
 
+    const core = ctx.coreRef.value;
+    if (!core) return;
+
     if (props.instructions) {
-      ctx.core.addContext({
+      core.addContext({
         description: "System instructions",
         value: props.instructions,
       });
@@ -92,15 +95,17 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
     isLoading.value = true;
 
     try {
-      // Use the core agent system to process the message
-      const agents = ctx.core.agents;
+      const core = ctx.coreRef.value;
+      if (!core) return;
+
+      const agents = core.agents;
       const agentIds = Object.keys(agents);
       const firstAgentId = agentIds[0];
 
       if (firstAgentId !== undefined) {
         const agent = agents[firstAgentId];
         if (agent) {
-          await ctx.core.runAgent({ agent });
+          await core.runAgent({ agent });
         }
       }
     } finally {

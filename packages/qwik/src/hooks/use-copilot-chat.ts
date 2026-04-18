@@ -65,15 +65,21 @@ export function useCopilotChat(
       return isLoading.value;
     },
     stopGeneration: () => {
-      const agents = ctx.core.agents;
+      const core = ctx.coreRef.value;
+      if (!core) return;
+      const agents = core.agents;
       for (const agent of Object.values(agents)) {
-        ctx.core.stopAgent({ agent });
+        core.stopAgent({ agent });
       }
     },
     reset: () => {
-      const agents = ctx.core.agents;
+      // Stop all running agents. A full reset (clearing messages, etc.)
+      // requires deeper integration with the AG-UI subscriber model.
+      const core = ctx.coreRef.value;
+      if (!core) return;
+      const agents = core.agents;
       for (const agent of Object.values(agents)) {
-        ctx.core.stopAgent({ agent });
+        core.stopAgent({ agent });
       }
     },
   };

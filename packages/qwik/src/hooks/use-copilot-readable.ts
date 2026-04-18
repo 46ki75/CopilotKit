@@ -1,5 +1,6 @@
 import { useContext, useTask$, useSignal } from "@builder.io/qwik";
 import { CopilotKitContextId } from "../context/copilot-context";
+import { requireCore } from "./use-copilot-context";
 
 /**
  * Options for the useCopilotReadable hook.
@@ -58,8 +59,10 @@ export function useCopilotReadable(
     track(() => options.value);
     track(() => options.available);
     track(() => options.convert);
+    track(() => ctx.coreRef.value);
 
-    const core = ctx.core;
+    const core = ctx.coreRef.value;
+    if (!core) return;
 
     if (options.available === "disabled") {
       if (ctxIdRef.value) {
@@ -79,8 +82,8 @@ export function useCopilotReadable(
     });
 
     cleanup(() => {
-      if (ctxIdRef.value) {
-        core.removeContext(ctxIdRef.value);
+      if (ctxIdRef.value && ctx.coreRef.value) {
+        ctx.coreRef.value.removeContext(ctxIdRef.value);
         ctxIdRef.value = undefined;
       }
     });

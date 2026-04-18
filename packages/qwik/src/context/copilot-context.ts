@@ -1,5 +1,6 @@
 import {
   createContextId,
+  type NoSerialize,
   type Signal,
 } from "@builder.io/qwik";
 import type { CopilotKitCore } from "@copilotkit/core";
@@ -32,9 +33,12 @@ export interface CopilotKitConfig {
 
 /**
  * The context value provided by the CopilotKit provider.
+ *
+ * `coreRef` is wrapped in `NoSerialize` because `CopilotKitCore` is a
+ * non-serializable class instance that is only available on the client.
  */
 export interface CopilotKitContextValue {
-  core: CopilotKitCore;
+  coreRef: Signal<NoSerialize<CopilotKitCore> | undefined>;
   isLoading: Signal<boolean>;
 }
 

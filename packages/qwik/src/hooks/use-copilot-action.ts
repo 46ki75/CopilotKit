@@ -58,8 +58,11 @@ export function useCopilotAction(
     track(() => options.name);
     track(() => options.description);
     track(() => options.available);
+    track(() => ctx.coreRef.value);
 
-    const core = ctx.core;
+    const core = ctx.coreRef.value;
+    if (!core) return;
+
     const toolName = options.name;
 
     if (options.available === "disabled") {
@@ -80,8 +83,8 @@ export function useCopilotAction(
     registered.value = true;
 
     cleanup(() => {
-      if (registered.value) {
-        core.removeTool(toolName);
+      if (registered.value && ctx.coreRef.value) {
+        ctx.coreRef.value.removeTool(toolName);
         registered.value = false;
       }
     });

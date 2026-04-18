@@ -1,4 +1,4 @@
-export { useCopilotContext } from "./use-copilot-context";
+export { useCopilotContext, requireCore } from "./use-copilot-context";
 export {
   useCopilotReadable,
   type UseCopilotReadableOptions,
