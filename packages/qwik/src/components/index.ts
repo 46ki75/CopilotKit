@@ -10,7 +10,10 @@ export {
   LicenseWarningBanner,
   InlineFeatureWarning,
 } from "./license-warning-banner";
-export { CopilotKitInspector, type CopilotKitInspectorProps } from "./CopilotKitInspector";
+export {
+  CopilotKitInspector,
+  type CopilotKitInspectorProps,
+} from "./CopilotKitInspector";
 export {
   Tooltip,
   TooltipProvider,

@@ -35,56 +35,69 @@ interface DropdownMenuContentProps {
   sideOffset?: number;
 }
 
-function joinClasses(...classes: (string | undefined | false | null)[]): string {
+function joinClasses(
+  ...classes: (string | undefined | false | null)[]
+): string {
   return classes.filter(Boolean).join(" ");
 }
 
 export const DropdownMenu = component$<DropdownMenuProps>(({ class: cls }) => {
   return (
-    <div data-slot="dropdown-menu" class={joinClasses("cpk:relative cpk:inline-block", cls)}>
-      <Slot />
-    </div>
-  );
-});
-
-export const DropdownMenuTrigger = component$<{ class?: string }>(({ class: cls }) => {
-  return (
-    <div data-slot="dropdown-menu-trigger" class={cls}>
-      <Slot />
-    </div>
-  );
-});
-
-export const DropdownMenuPortal = component$<{ class?: string }>(({ class: cls }) => {
-  return (
-    <div data-slot="dropdown-menu-portal" class={cls}>
-      <Slot />
-    </div>
-  );
-});
-
-export const DropdownMenuContent = component$<DropdownMenuContentProps>(({ class: cls }) => {
-  return (
     <div
-      data-copilotkit
-      data-slot="dropdown-menu-content"
-      class={joinClasses(
-        "cpk:bg-popover cpk:text-popover-foreground cpk:z-50 cpk:min-w-[8rem] cpk:overflow-hidden cpk:rounded-md cpk:border cpk:p-1 cpk:shadow-md",
-        cls,
-      )}
+      data-slot="dropdown-menu"
+      class={joinClasses("cpk:relative cpk:inline-block", cls)}
     >
       <Slot />
     </div>
   );
 });
 
-export const DropdownMenuGroup = component$<{ class?: string }>(({ class: cls }) => {
-  return (
-    <div data-slot="dropdown-menu-group" class={cls}>
-      <Slot />
-    </div>
-  );
-});
+export const DropdownMenuTrigger = component$<{ class?: string }>(
+  ({ class: cls }) => {
+    return (
+      <div data-slot="dropdown-menu-trigger" class={cls}>
+        <Slot />
+      </div>
+    );
+  },
+);
+
+export const DropdownMenuPortal = component$<{ class?: string }>(
+  ({ class: cls }) => {
+    return (
+      <div data-slot="dropdown-menu-portal" class={cls}>
+        <Slot />
+      </div>
+    );
+  },
+);
+
+export const DropdownMenuContent = component$<DropdownMenuContentProps>(
+  ({ class: cls }) => {
+    return (
+      <div
+        data-copilotkit
+        data-slot="dropdown-menu-content"
+        class={joinClasses(
+          "cpk:bg-popover cpk:text-popover-foreground cpk:z-50 cpk:min-w-[8rem] cpk:overflow-hidden cpk:rounded-md cpk:border cpk:p-1 cpk:shadow-md",
+          cls,
+        )}
+      >
+        <Slot />
+      </div>
+    );
+  },
+);
+
+export const DropdownMenuGroup = component$<{ class?: string }>(
+  ({ class: cls }) => {
+    return (
+      <div data-slot="dropdown-menu-group" class={cls}>
+        <Slot />
+      </div>
+    );
+  },
+);
 
 export const DropdownMenuItem = component$<DropdownMenuItemProps>(
   ({ class: cls, inset, variant = "default", disabled, onClick$ }) => {
@@ -97,7 +110,9 @@ export const DropdownMenuItem = component$<DropdownMenuItemProps>(
           "cpk:focus:bg-accent cpk:focus:text-accent-foreground cpk:relative cpk:flex cpk:cursor-default cpk:items-center cpk:gap-2 cpk:rounded-sm cpk:px-2 cpk:py-1.5 cpk:text-sm cpk:outline-hidden cpk:select-none",
           variant === "destructive" ? "cpk:text-destructive" : "",
           inset ? "cpk:pl-8" : "",
-          disabled ? "cpk:pointer-events-none cpk:opacity-50" : "cpk:cursor-pointer",
+          disabled
+            ? "cpk:pointer-events-none cpk:opacity-50"
+            : "cpk:cursor-pointer",
           cls,
         )}
         onClick$={onClick$}
@@ -119,7 +134,9 @@ export const DropdownMenuCheckboxItem = component$<{
       data-slot="dropdown-menu-checkbox-item"
       class={joinClasses(
         "cpk:focus:bg-accent cpk:focus:text-accent-foreground cpk:relative cpk:flex cpk:cursor-default cpk:items-center cpk:gap-2 cpk:rounded-sm cpk:py-1.5 cpk:pr-2 cpk:pl-8 cpk:text-sm cpk:outline-hidden cpk:select-none",
-        disabled ? "cpk:pointer-events-none cpk:opacity-50" : "cpk:cursor-pointer",
+        disabled
+          ? "cpk:pointer-events-none cpk:opacity-50"
+          : "cpk:cursor-pointer",
         cls,
       )}
       onClick$={onClick$}
@@ -146,13 +163,15 @@ export const DropdownMenuCheckboxItem = component$<{
   );
 });
 
-export const DropdownMenuRadioGroup = component$<{ class?: string }>(({ class: cls }) => {
-  return (
-    <div data-slot="dropdown-menu-radio-group" class={cls}>
-      <Slot />
-    </div>
-  );
-});
+export const DropdownMenuRadioGroup = component$<{ class?: string }>(
+  ({ class: cls }) => {
+    return (
+      <div data-slot="dropdown-menu-radio-group" class={cls}>
+        <Slot />
+      </div>
+    );
+  },
+);
 
 export const DropdownMenuRadioItem = component$<{
   class?: string;
@@ -165,7 +184,9 @@ export const DropdownMenuRadioItem = component$<{
       data-slot="dropdown-menu-radio-item"
       class={joinClasses(
         "cpk:focus:bg-accent cpk:focus:text-accent-foreground cpk:relative cpk:flex cpk:cursor-default cpk:items-center cpk:gap-2 cpk:rounded-sm cpk:py-1.5 cpk:pr-2 cpk:pl-8 cpk:text-sm cpk:outline-hidden cpk:select-none",
-        disabled ? "cpk:pointer-events-none cpk:opacity-50" : "cpk:cursor-pointer",
+        disabled
+          ? "cpk:pointer-events-none cpk:opacity-50"
+          : "cpk:cursor-pointer",
         cls,
       )}
       onClick$={onClick$}
@@ -188,52 +209,60 @@ export const DropdownMenuRadioItem = component$<{
   );
 });
 
-export const DropdownMenuLabel = component$<DropdownMenuLabelProps>(({ class: cls, inset }) => {
-  return (
-    <div
-      data-slot="dropdown-menu-label"
-      data-inset={inset}
-      class={joinClasses(
-        "cpk:px-2 cpk:py-1.5 cpk:text-sm cpk:font-medium",
-        inset ? "cpk:pl-8" : "",
-        cls,
-      )}
-    >
-      <Slot />
-    </div>
-  );
-});
+export const DropdownMenuLabel = component$<DropdownMenuLabelProps>(
+  ({ class: cls, inset }) => {
+    return (
+      <div
+        data-slot="dropdown-menu-label"
+        data-inset={inset}
+        class={joinClasses(
+          "cpk:px-2 cpk:py-1.5 cpk:text-sm cpk:font-medium",
+          inset ? "cpk:pl-8" : "",
+          cls,
+        )}
+      >
+        <Slot />
+      </div>
+    );
+  },
+);
 
-export const DropdownMenuSeparator = component$<DropdownMenuSeparatorProps>(({ class: cls }) => {
-  return (
-    <div
-      data-slot="dropdown-menu-separator"
-      class={joinClasses("cpk:bg-border cpk:-mx-1 cpk:my-1 cpk:h-px", cls)}
-    />
-  );
-});
+export const DropdownMenuSeparator = component$<DropdownMenuSeparatorProps>(
+  ({ class: cls }) => {
+    return (
+      <div
+        data-slot="dropdown-menu-separator"
+        class={joinClasses("cpk:bg-border cpk:-mx-1 cpk:my-1 cpk:h-px", cls)}
+      />
+    );
+  },
+);
 
-export const DropdownMenuShortcut = component$<DropdownMenuShortcutProps>(({ class: cls }) => {
-  return (
-    <span
-      data-slot="dropdown-menu-shortcut"
-      class={joinClasses(
-        "cpk:text-muted-foreground cpk:ml-auto cpk:text-xs cpk:tracking-widest",
-        cls,
-      )}
-    >
-      <Slot />
-    </span>
-  );
-});
+export const DropdownMenuShortcut = component$<DropdownMenuShortcutProps>(
+  ({ class: cls }) => {
+    return (
+      <span
+        data-slot="dropdown-menu-shortcut"
+        class={joinClasses(
+          "cpk:text-muted-foreground cpk:ml-auto cpk:text-xs cpk:tracking-widest",
+          cls,
+        )}
+      >
+        <Slot />
+      </span>
+    );
+  },
+);
 
-export const DropdownMenuSub = component$<{ class?: string }>(({ class: cls }) => {
-  return (
-    <div data-slot="dropdown-menu-sub" class={cls}>
-      <Slot />
-    </div>
-  );
-});
+export const DropdownMenuSub = component$<{ class?: string }>(
+  ({ class: cls }) => {
+    return (
+      <div data-slot="dropdown-menu-sub" class={cls}>
+        <Slot />
+      </div>
+    );
+  },
+);
 
 export const DropdownMenuSubTrigger = component$<{
   class?: string;
@@ -268,16 +297,18 @@ export const DropdownMenuSubTrigger = component$<{
   );
 });
 
-export const DropdownMenuSubContent = component$<{ class?: string }>(({ class: cls }) => {
-  return (
-    <div
-      data-slot="dropdown-menu-sub-content"
-      class={joinClasses(
-        "cpk:bg-popover cpk:text-popover-foreground cpk:z-50 cpk:min-w-[8rem] cpk:overflow-hidden cpk:rounded-md cpk:border cpk:p-1 cpk:shadow-lg",
-        cls,
-      )}
-    >
-      <Slot />
-    </div>
-  );
-});
+export const DropdownMenuSubContent = component$<{ class?: string }>(
+  ({ class: cls }) => {
+    return (
+      <div
+        data-slot="dropdown-menu-sub-content"
+        class={joinClasses(
+          "cpk:bg-popover cpk:text-popover-foreground cpk:z-50 cpk:min-w-[8rem] cpk:overflow-hidden cpk:rounded-md cpk:border cpk:p-1 cpk:shadow-lg",
+          cls,
+        )}
+      >
+        <Slot />
+      </div>
+    );
+  },
+);

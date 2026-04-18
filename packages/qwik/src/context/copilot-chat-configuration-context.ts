@@ -1,5 +1,5 @@
-import { createContextId, useContext } from '@builder.io/qwik';
-import type { Signal } from '@builder.io/qwik';
+import { createContextId, useContext } from "@builder.io/qwik";
+import type { Signal } from "@builder.io/qwik";
 
 export const CopilotChatDefaultLabels = {
   chatInputPlaceholder: "Type a message...",

@@ -29,7 +29,9 @@ export const CopilotChatToggleButton = component$<CopilotChatToggleButtonProps>(
         data-slot="chat-toggle-button"
         data-state={isOpen ? "open" : "closed"}
         class={`copilotKitButton ${props.class ?? ""}`}
-        aria-label={isOpen ? labels.chatToggleCloseLabel : labels.chatToggleOpenLabel}
+        aria-label={
+          isOpen ? labels.chatToggleCloseLabel : labels.chatToggleOpenLabel
+        }
         aria-pressed={isOpen}
         onClick$={handleClick}
         style={{
@@ -60,13 +62,25 @@ export const CopilotChatToggleButton = component$<CopilotChatToggleButtonProps>(
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            transition: "opacity 120ms ease-out, transform 260ms cubic-bezier(0.22,1,0.36,1)",
+            transition:
+              "opacity 120ms ease-out, transform 260ms cubic-bezier(0.22,1,0.36,1)",
             opacity: isOpen ? "0" : "1",
-            transform: isOpen ? "scale(0.75) rotate(90deg)" : "scale(1) rotate(0deg)",
+            transform: isOpen
+              ? "scale(0.75) rotate(90deg)"
+              : "scale(1) rotate(0deg)",
             pointerEvents: "none",
           }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
           </svg>
         </span>
@@ -79,13 +93,25 @@ export const CopilotChatToggleButton = component$<CopilotChatToggleButtonProps>(
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            transition: "opacity 120ms ease-out, transform 260ms cubic-bezier(0.22,1,0.36,1)",
+            transition:
+              "opacity 120ms ease-out, transform 260ms cubic-bezier(0.22,1,0.36,1)",
             opacity: isOpen ? "1" : "0",
-            transform: isOpen ? "scale(1) rotate(0deg)" : "scale(0.75) rotate(-90deg)",
+            transform: isOpen
+              ? "scale(1) rotate(0deg)"
+              : "scale(0.75) rotate(-90deg)",
             pointerEvents: "none",
           }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <path d="M18 6 6 18" />
             <path d="m6 6 12 12" />
           </svg>

@@ -1,5 +1,5 @@
-import { component$ } from '@builder.io/qwik';
-import type { QRL } from '@builder.io/qwik';
+import { component$ } from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
 import type { Suggestion } from "@copilotkit/core";
 import { CopilotChatSuggestionPill } from "./CopilotChatSuggestionPill";
 
@@ -9,8 +9,8 @@ export interface CopilotChatSuggestionViewProps {
   class?: string;
 }
 
-export const CopilotChatSuggestionView = component$<CopilotChatSuggestionViewProps>(
-  (props) => {
+export const CopilotChatSuggestionView =
+  component$<CopilotChatSuggestionViewProps>((props) => {
     if (!props.suggestions || props.suggestions.length === 0) {
       return null;
     }
@@ -40,5 +40,4 @@ export const CopilotChatSuggestionView = component$<CopilotChatSuggestionViewPro
         ))}
       </div>
     );
-  },
-);
+  });

@@ -1,6 +1,6 @@
 import type { CopilotKitCoreQwik } from "./qwik-core";
-import { TranscriptionErrorCode } from '@copilotkit/shared';
-import type { TranscriptionErrorResponse } from '@copilotkit/shared';
+import { TranscriptionErrorCode } from "@copilotkit/shared";
+import type { TranscriptionErrorResponse } from "@copilotkit/shared";
 
 export interface TranscriptionResult {
   text: string;
@@ -36,7 +36,9 @@ async function blobToBase64(blob: Blob): Promise<string> {
       }
       resolve(base64);
     };
-    reader.addEventListener('error', () => reject(new Error("Failed to read audio data")));
+    reader.addEventListener("error", () =>
+      reject(new Error("Failed to read audio data")),
+    );
     reader.readAsDataURL(blob);
   });
 }

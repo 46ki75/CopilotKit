@@ -26,9 +26,9 @@ export function useRenderToolCall(): (
   const chatConfig = useCopilotChatConfiguration();
   const agentId = chatConfig?.agentId ?? DEFAULT_AGENT_ID;
 
-  const renderToolCallsSig = useSignal<
-    Readonly<QwikToolCallRenderer<any>[]>
-  >([]);
+  const renderToolCallsSig = useSignal<Readonly<QwikToolCallRenderer<any>[]>>(
+    [],
+  );
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track, cleanup }) => {

@@ -144,13 +144,11 @@ function getOperationSurfaceId(operation: unknown): string | null {
 
   // v0.9 message keys
   return (
-    (
-      (op.createSurface as { surfaceId?: string } | undefined)?.surfaceId ??
-      (op.updateComponents as { surfaceId?: string } | undefined)?.surfaceId ??
-      (op.updateDataModel as { surfaceId?: string } | undefined)?.surfaceId ??
-      (op.deleteSurface as { surfaceId?: string } | undefined)?.surfaceId ??
-      null
-    )
+    (op.createSurface as { surfaceId?: string } | undefined)?.surfaceId ??
+    (op.updateComponents as { surfaceId?: string } | undefined)?.surfaceId ??
+    (op.updateDataModel as { surfaceId?: string } | undefined)?.surfaceId ??
+    (op.deleteSurface as { surfaceId?: string } | undefined)?.surfaceId ??
+    null
   );
 }
 

@@ -1,5 +1,5 @@
-import { createContextId } from '@builder.io/qwik';
-import type { Signal } from '@builder.io/qwik';
+import { createContextId } from "@builder.io/qwik";
+import type { Signal } from "@builder.io/qwik";
 
 /**
  * Provides the scroll container element to child components.

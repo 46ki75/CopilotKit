@@ -1,5 +1,11 @@
-import { component$, Slot, useSignal, useContextProvider, useVisibleTask$ } from '@builder.io/qwik';
-import type { QRL } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  useSignal,
+  useContextProvider,
+  useVisibleTask$,
+} from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
 import type { Message } from "@ag-ui/core";
 import type { Suggestion } from "@copilotkit/core";
 import type { Attachment } from "@copilotkit/shared";
@@ -92,12 +98,23 @@ export const CopilotChatView = component$<CopilotChatViewProps>((props) => {
               color: "#666",
             }}
           >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
               <line x1="12" x2="12" y1="3" y2="15" />
             </svg>
-            <span style={{ fontSize: "14px", fontWeight: "500" }}>Drop files here</span>
+            <span style={{ fontSize: "14px", fontWeight: "500" }}>
+              Drop files here
+            </span>
           </div>
         </div>
       )}
@@ -132,12 +149,14 @@ export const CopilotChatView = component$<CopilotChatViewProps>((props) => {
       )}
 
       {/* Attachment queue */}
-      {props.attachments && props.attachments.length > 0 && props.onRemoveAttachment$ && (
-        <CopilotChatAttachmentQueue
-          attachments={props.attachments}
-          onRemoveAttachment$={props.onRemoveAttachment$}
-        />
-      )}
+      {props.attachments &&
+        props.attachments.length > 0 &&
+        props.onRemoveAttachment$ && (
+          <CopilotChatAttachmentQueue
+            attachments={props.attachments}
+            onRemoveAttachment$={props.onRemoveAttachment$}
+          />
+        )}
 
       {/* Input */}
       <CopilotChatInput

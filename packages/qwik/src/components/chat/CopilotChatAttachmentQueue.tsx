@@ -1,5 +1,5 @@
-import { component$ } from '@builder.io/qwik';
-import type { QRL } from '@builder.io/qwik';
+import { component$ } from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
 import type { Attachment } from "@copilotkit/shared";
 
 export interface CopilotChatAttachmentQueueProps {
@@ -8,17 +8,23 @@ export interface CopilotChatAttachmentQueueProps {
   class?: string;
 }
 
-export const CopilotChatAttachmentQueue = component$<CopilotChatAttachmentQueueProps>(
-  (props) => {
+export const CopilotChatAttachmentQueue =
+  component$<CopilotChatAttachmentQueueProps>((props) => {
     if (props.attachments.length === 0) return null;
 
     return (
       <div
         class={props.class ?? ""}
-        style={{ display: "flex", flexWrap: "wrap", gap: "8px", padding: "8px" }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "8px",
+          padding: "8px",
+        }}
       >
         {props.attachments.map((attachment) => {
-          const isMedia = attachment.type === "image" || attachment.type === "video";
+          const isMedia =
+            attachment.type === "image" || attachment.type === "video";
           return (
             <div
               key={attachment.id}
@@ -108,5 +114,4 @@ export const CopilotChatAttachmentQueue = component$<CopilotChatAttachmentQueueP
         })}
       </div>
     );
-  },
-);
+  });

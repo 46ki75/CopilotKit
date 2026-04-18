@@ -1,5 +1,5 @@
-import { component$ } from '@builder.io/qwik';
-import type { QRL } from '@builder.io/qwik';
+import { component$ } from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
 
 export interface CopilotChatSuggestionPillProps {
   title: string;
@@ -8,8 +8,8 @@ export interface CopilotChatSuggestionPillProps {
   class?: string;
 }
 
-export const CopilotChatSuggestionPill = component$<CopilotChatSuggestionPillProps>(
-  (props) => {
+export const CopilotChatSuggestionPill =
+  component$<CopilotChatSuggestionPillProps>((props) => {
     return (
       <button
         type="button"
@@ -49,5 +49,4 @@ export const CopilotChatSuggestionPill = component$<CopilotChatSuggestionPillPro
         <span>{props.title}</span>
       </button>
     );
-  },
-);
+  });

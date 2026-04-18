@@ -17,8 +17,8 @@ export interface CopilotChatReasoningMessageProps {
   class?: string;
 }
 
-export const CopilotChatReasoningMessage = component$<CopilotChatReasoningMessageProps>(
-  (props) => {
+export const CopilotChatReasoningMessage =
+  component$<CopilotChatReasoningMessageProps>((props) => {
     const isOpen = useSignal(false);
     const elapsed = useSignal(0);
     const startTime = useSignal<number | null>(null);
@@ -28,7 +28,9 @@ export const CopilotChatReasoningMessage = component$<CopilotChatReasoningMessag
         ? props.messages[props.messages.length - 1]?.id === props.message.id
         : false;
     const isStreaming = !!(props.isRunning && isLatest);
-    const hasContent = !!(props.message.content && props.message.content.length > 0);
+    const hasContent = !!(
+      props.message.content && props.message.content.length > 0
+    );
 
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ track, cleanup }) => {
@@ -139,7 +141,13 @@ export const CopilotChatReasoningMessage = component$<CopilotChatReasoningMessag
         >
           <div style={{ overflow: "hidden" }}>
             {(hasContent || isStreaming) && (
-              <div style={{ padding: "4px 0 8px", fontSize: "14px", color: "#666" }}>
+              <div
+                style={{
+                  padding: "4px 0 8px",
+                  fontSize: "14px",
+                  color: "#666",
+                }}
+              >
                 {props.message.content ?? ""}
                 {isStreaming && hasContent && (
                   <span
@@ -167,5 +175,4 @@ export const CopilotChatReasoningMessage = component$<CopilotChatReasoningMessag
         </div>
       </div>
     );
-  },
-);
+  });

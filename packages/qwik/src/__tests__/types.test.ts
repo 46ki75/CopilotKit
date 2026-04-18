@@ -1,16 +1,12 @@
 import { describe, it, expect } from "vitest";
-import type {
-  CopilotKitConfig,
-} from "../context/copilot-context";
+import type { CopilotKitConfig } from "../context/copilot-context";
 import type { DocumentPointer } from "../types/document-pointer";
 import type {
   FrontendAction,
   FrontendActionAvailability,
 } from "../types/frontend-action";
 import type { UseCopilotReadableOptions } from "../hooks/use-copilot-readable";
-import type {
-  UseCopilotChatOptions,
-} from "../hooks/use-copilot-chat";
+import type { UseCopilotChatOptions } from "../hooks/use-copilot-chat";
 import type { CopilotChatProps } from "../components/copilot-chat";
 import type {
   InterruptEvent,
@@ -18,9 +14,7 @@ import type {
   InterruptRenderProps,
 } from "../types/interrupt";
 import type { SandboxFunction } from "../types/sandbox-function";
-import type {
-  CopilotChatLabels,
-} from "../context/copilot-chat-configuration-context";
+import type { CopilotChatLabels } from "../context/copilot-chat-configuration-context";
 
 /**
  * Type-level tests that verify exported interfaces compile correctly.

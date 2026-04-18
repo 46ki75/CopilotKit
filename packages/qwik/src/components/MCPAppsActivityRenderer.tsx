@@ -1,4 +1,9 @@
-import { component$, useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  component$,
+  useContext,
+  useSignal,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 import { z } from "zod";
 import type { AbstractAgent, RunAgentResult } from "@ag-ui/client";
 import { CopilotKitContextId } from "../context/copilot-context";

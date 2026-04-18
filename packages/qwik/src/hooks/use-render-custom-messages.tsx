@@ -16,9 +16,9 @@ interface UseRenderCustomMessagesParams {
  *
  * This is the Qwik equivalent of `useRenderCustomMessages` from `@copilotkit/react-core`.
  */
-export function useRenderCustomMessages(): ((
-  params: UseRenderCustomMessagesParams,
-) => JSXOutput | null) | null {
+export function useRenderCustomMessages():
+  | ((params: UseRenderCustomMessagesParams) => JSXOutput | null)
+  | null {
   const ctx = useContext(CopilotKitContextId);
   const config = useCopilotChatConfiguration();
 

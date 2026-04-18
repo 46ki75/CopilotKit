@@ -1,5 +1,5 @@
-import { createContextId } from '@builder.io/qwik';
-import type { NoSerialize, Signal } from '@builder.io/qwik';
+import { createContextId } from "@builder.io/qwik";
+import type { NoSerialize, Signal } from "@builder.io/qwik";
 import type {
   CopilotKitCore,
   CopilotKitCoreErrorCode,

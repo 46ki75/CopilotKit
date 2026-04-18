@@ -1,9 +1,7 @@
-import { component$, useSignal } from '@builder.io/qwik';
-import type { QRL } from '@builder.io/qwik';
+import { component$, useSignal } from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
 import type { Attachment } from "@copilotkit/shared";
-import {
-  CopilotChatDefaultLabels,
-} from "../../context/copilot-chat-configuration-context";
+import { CopilotChatDefaultLabels } from "../../context/copilot-chat-configuration-context";
 import { useCopilotChatConfiguration } from "../copilot-chat-configuration-provider";
 
 export interface CopilotChatInputProps {
@@ -24,7 +22,8 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
   const chatConfig = useCopilotChatConfiguration();
   const labels = chatConfig?.labels ?? CopilotChatDefaultLabels;
 
-  const inputValue = props.inputValue !== undefined ? props.inputValue : localInput.value;
+  const inputValue =
+    props.inputValue !== undefined ? props.inputValue : localInput.value;
 
   return (
     <div
@@ -103,7 +102,16 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
                 color: "#666",
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
               </svg>
             </button>
@@ -126,7 +134,12 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
                 cursor: "pointer",
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <rect x="6" y="6" width="12" height="12" rx="2" />
               </svg>
             </button>
@@ -149,7 +162,16 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
                 transition: "background 0.15s",
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="m5 12 7-7 7 7" />
                 <path d="M12 19V5" />
               </svg>

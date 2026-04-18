@@ -6,8 +6,14 @@ import {
   useSignal,
 } from "@builder.io/qwik";
 import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkit/shared";
-import { CopilotChatConfigurationContextId, CopilotChatDefaultLabels } from '../context/copilot-chat-configuration-context';
-import type { CopilotChatLabels, CopilotChatConfigurationValue } from '../context/copilot-chat-configuration-context';
+import {
+  CopilotChatConfigurationContextId,
+  CopilotChatDefaultLabels,
+} from "../context/copilot-chat-configuration-context";
+import type {
+  CopilotChatLabels,
+  CopilotChatConfigurationValue,
+} from "../context/copilot-chat-configuration-context";
 
 // Re-export for convenience
 export { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";

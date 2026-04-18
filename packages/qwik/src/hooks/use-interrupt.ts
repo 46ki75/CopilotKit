@@ -1,5 +1,5 @@
-import { useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
-import type { Signal } from '@builder.io/qwik';
+import { useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import type { Signal } from "@builder.io/qwik";
 import { CopilotKitContextId } from "../context/copilot-context";
 import { useAgent } from "./use-agent";
 import type {
@@ -197,16 +197,22 @@ export function useInterrupt<TValue = unknown, TResult = never>(
             if (isPromiseLike(maybePromise)) {
               Promise.resolve(maybePromise)
                 .then((resolved) => {
-                  handlerResultSig.value =
-                    resolved as InterruptResult<TValue, TResult>;
+                  handlerResultSig.value = resolved as InterruptResult<
+                    TValue,
+                    TResult
+                  >;
                 })
                 .catch(() => {
-                  handlerResultSig.value =
-                    null as InterruptResult<TValue, TResult>;
+                  handlerResultSig.value = null as InterruptResult<
+                    TValue,
+                    TResult
+                  >;
                 });
             } else {
-              handlerResultSig.value =
-                maybePromise as InterruptResult<TValue, TResult>;
+              handlerResultSig.value = maybePromise as InterruptResult<
+                TValue,
+                TResult
+              >;
             }
           }
 

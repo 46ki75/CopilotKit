@@ -45,25 +45,21 @@ type RenderToolConfig<S extends StandardSchemaV1> = {
 /**
  * Registers a wildcard (`"*"`) renderer for tool calls.
  */
-export function useRenderTool(
-  config: {
-    name: "*";
-    render: (props: any) => JSXOutput;
-    agentId?: string;
-  },
-): void;
+export function useRenderTool(config: {
+  name: "*";
+  render: (props: any) => JSXOutput;
+  agentId?: string;
+}): void;
 
 /**
  * Registers a name-scoped renderer for tool calls.
  */
-export function useRenderTool<S extends StandardSchemaV1>(
-  config: {
-    name: string;
-    parameters: S;
-    render: (props: RenderToolProps<S>) => JSXOutput;
-    agentId?: string;
-  },
-): void;
+export function useRenderTool<S extends StandardSchemaV1>(config: {
+  name: string;
+  parameters: S;
+  render: (props: RenderToolProps<S>) => JSXOutput;
+  agentId?: string;
+}): void;
 
 /**
  * Registers a renderer entry in CopilotKit's `renderToolCalls` registry.

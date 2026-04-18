@@ -7,8 +7,8 @@ export interface CopilotChatToolCallsViewProps {
   messages?: Message[];
 }
 
-export const CopilotChatToolCallsView = component$<CopilotChatToolCallsViewProps>(
-  (props) => {
+export const CopilotChatToolCallsView =
+  component$<CopilotChatToolCallsViewProps>((props) => {
     const renderToolCall = useRenderToolCall();
 
     if (!props.message.toolCalls || props.message.toolCalls.length === 0) {
@@ -19,7 +19,9 @@ export const CopilotChatToolCallsView = component$<CopilotChatToolCallsViewProps
       <>
         {props.message.toolCalls.map((toolCall) => {
           const toolMessage = (props.messages ?? []).find(
-            (m) => m.role === "tool" && (m as ToolMessage).toolCallId === toolCall.id,
+            (m) =>
+              m.role === "tool" &&
+              (m as ToolMessage).toolCallId === toolCall.id,
           ) as ToolMessage | undefined;
 
           const rendered = renderToolCall({
@@ -31,5 +33,4 @@ export const CopilotChatToolCallsView = component$<CopilotChatToolCallsViewProps
         })}
       </>
     );
-  },
-);
+  });

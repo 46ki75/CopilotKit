@@ -266,7 +266,7 @@ describe("@copilotkit/qwik module exports", () => {
   it("extractCompleteStyles should extract style blocks", async () => {
     const { extractCompleteStyles } = await import("../lib/processPartialHtml");
     const result = extractCompleteStyles(
-      '<style>body { color: red; }</style><div>content</div>',
+      "<style>body { color: red; }</style><div>content</div>",
     );
     expect(result).toContain("body { color: red; }");
   });

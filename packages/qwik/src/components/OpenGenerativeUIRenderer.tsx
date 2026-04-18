@@ -1,8 +1,4 @@
-import {
-  component$,
-  useSignal,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { z } from "zod";
 import { ToolCallStatus } from "@copilotkit/core";
 import type Websandbox from "@jetbrains/websandbox";

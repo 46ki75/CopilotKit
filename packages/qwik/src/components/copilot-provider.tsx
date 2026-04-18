@@ -1,8 +1,15 @@
-import { component$, Slot, useContextProvider, useSignal, useVisibleTask$, noSerialize } from '@builder.io/qwik';
-import type { NoSerialize } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  useContextProvider,
+  useSignal,
+  useVisibleTask$,
+  noSerialize,
+} from "@builder.io/qwik";
+import type { NoSerialize } from "@builder.io/qwik";
 import { CopilotKitCoreQwik } from "../lib/qwik-core";
-import { CopilotKitContextId } from '../context/copilot-context';
-import type { CopilotKitConfig } from '../context/copilot-context';
+import { CopilotKitContextId } from "../context/copilot-context";
+import type { CopilotKitConfig } from "../context/copilot-context";
 
 const COPILOT_CLOUD_CHAT_URL = "https://api.cloud.copilotkit.ai/copilotkit/v1";
 const HEADER_PUBLIC_API_KEY = "X-CopilotCloud-Public-Api-Key";

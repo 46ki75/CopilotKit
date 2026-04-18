@@ -60,14 +60,23 @@ const SIZE_CLASSES: Record<ButtonSize, string> = {
   lg: "cpk:h-10 cpk:rounded-md cpk:px-6",
   icon: "cpk:size-9",
   chatInputToolbarIcon: "cpk:h-9 cpk:w-9 cpk:rounded-full",
-  chatInputToolbarIconLabel: "cpk:h-9 cpk:px-3 cpk:rounded-full cpk:gap-2 cpk:font-normal",
+  chatInputToolbarIconLabel:
+    "cpk:h-9 cpk:px-3 cpk:rounded-full cpk:gap-2 cpk:font-normal",
 };
 
 const BASE_CLASSES =
   "cpk:inline-flex cpk:items-center cpk:justify-center cpk:gap-2 cpk:whitespace-nowrap cpk:rounded-md cpk:text-sm cpk:font-medium cpk:transition-all cpk:disabled:pointer-events-none cpk:disabled:opacity-50 cpk:outline-none";
 
 export const Button = component$<ButtonProps>(
-  ({ variant = "default", size = "default", class: cls, disabled, type = "button", onClick$, ...rest }) => {
+  ({
+    variant = "default",
+    size = "default",
+    class: cls,
+    disabled,
+    type = "button",
+    onClick$,
+    ...rest
+  }) => {
     const variantClass = VARIANT_CLASSES[variant] ?? VARIANT_CLASSES.default;
     const sizeClass = SIZE_CLASSES[size] ?? SIZE_CLASSES.default;
     const classes = [BASE_CLASSES, variantClass, sizeClass, cls]

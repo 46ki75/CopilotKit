@@ -63,7 +63,12 @@ function defaultToolCallRenderer({
           }}
         >
           <div
-            style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              minWidth: 0,
+            }}
           >
             <span
               style={{
@@ -105,11 +110,7 @@ function defaultToolCallRenderer({
                 : isComplete
                   ? "#d1fae5"
                   : "#f4f4f5",
-              color: isActive
-                ? "#92400e"
-                : isComplete
-                  ? "#065f46"
-                  : "#3f3f46",
+              color: isActive ? "#92400e" : isComplete ? "#065f46" : "#3f3f46",
               flexShrink: 0,
             }}
           >

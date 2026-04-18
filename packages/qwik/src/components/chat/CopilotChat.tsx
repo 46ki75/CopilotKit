@@ -1,16 +1,29 @@
-import { component$, useContext, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+import {
+  component$,
+  useContext,
+  useSignal,
+  useVisibleTask$,
+  $,
+} from "@builder.io/qwik";
 
 import { HttpAgent } from "@ag-ui/client";
 import type { AbstractAgent } from "@ag-ui/client";
 import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkit/shared";
-import type { AttachmentsConfig, InputContent, Attachment } from "@copilotkit/shared";
+import type {
+  AttachmentsConfig,
+  InputContent,
+  Attachment,
+} from "@copilotkit/shared";
 import type { Suggestion, CopilotKitCoreErrorCode } from "@copilotkit/core";
 import { CopilotKitContextId } from "../../context/copilot-context";
 import { useAgent } from "../../hooks/use-agent";
 import { useSuggestions } from "../../hooks/use-suggestions";
 import { useAttachments } from "../../hooks/use-attachments";
-import { CopilotChatConfigurationProvider, useCopilotChatConfiguration } from "../copilot-chat-configuration-provider";
-import { CopilotChatView } from './CopilotChatView';
+import {
+  CopilotChatConfigurationProvider,
+  useCopilotChatConfiguration,
+} from "../copilot-chat-configuration-provider";
+import { CopilotChatView } from "./CopilotChatView";
 import type { CopilotChatLabels } from "../../context/copilot-chat-configuration-context";
 
 export interface CopilotChatProps {
@@ -31,11 +44,15 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
   const ctx = useContext(CopilotKitContextId);
   const existingConfig = useCopilotChatConfiguration();
 
-  const resolvedAgentId = props.agentId ?? existingConfig?.agentId ?? DEFAULT_AGENT_ID;
-  const resolvedThreadId = props.threadId ?? existingConfig?.threadId ?? randomUUID();
+  const resolvedAgentId =
+    props.agentId ?? existingConfig?.agentId ?? DEFAULT_AGENT_ID;
+  const resolvedThreadId =
+    props.threadId ?? existingConfig?.threadId ?? randomUUID();
 
   const { agent, messages, isRunning } = useAgent({ agentId: resolvedAgentId });
-  const { suggestions: autoSuggestions } = useSuggestions({ agentId: resolvedAgentId });
+  const { suggestions: autoSuggestions } = useSuggestions({
+    agentId: resolvedAgentId,
+  });
   const {
     attachments: selectedAttachments,
     enabled: attachmentsEnabled,
@@ -94,7 +111,11 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
     if (!core || !props.onError) return;
 
     const subscription = core.subscribe({
-      onError: (event: { error: Error; code: CopilotKitCoreErrorCode; context: Record<string, unknown> }) => {
+      onError: (event: {
+        error: Error;
+        code: CopilotKitCoreErrorCode;
+        context: Record<string, unknown>;
+      }) => {
         const eventAgentId = event.context?.agentId;
         if (eventAgentId === resolvedAgentId || !eventAgentId) {
           props.onError!({
@@ -177,7 +198,10 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
     try {
       await core.runAgent({ agent: agentInstance });
     } catch (error) {
-      console.error("CopilotChat: runAgent failed after selecting suggestion", error);
+      console.error(
+        "CopilotChat: runAgent failed after selecting suggestion",
+        error,
+      );
     }
   });
 
@@ -252,11 +276,17 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
           suggestions={autoSuggestions.value}
           onSelectSuggestion$={handleSelectSuggestion}
           onSubmitMessage$={handleSubmitMessage}
-          onStop$={isRunning.value && messages.value.length > 0 ? handleStop : undefined}
+          onStop$={
+            isRunning.value && messages.value.length > 0
+              ? handleStop
+              : undefined
+          }
           inputValue={inputValue.value}
           onInputChange$={handleInputChange}
           attachments={selectedAttachments.value}
-          onRemoveAttachment$={attachmentsEnabled ? handleRemoveAttachment : undefined}
+          onRemoveAttachment$={
+            attachmentsEnabled ? handleRemoveAttachment : undefined
+          }
           onAddFile$={attachmentsEnabled ? handleAddFile : undefined}
           dragOver={dragOver.value}
           onDragOver$={handleDragOverEvent}

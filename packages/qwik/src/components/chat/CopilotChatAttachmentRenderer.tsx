@@ -9,8 +9,8 @@ export interface CopilotChatAttachmentRendererProps {
   class?: string;
 }
 
-export const CopilotChatAttachmentRenderer = component$<CopilotChatAttachmentRendererProps>(
-  (props) => {
+export const CopilotChatAttachmentRenderer =
+  component$<CopilotChatAttachmentRendererProps>((props) => {
     const src = getSourceUrl(props.source);
     const imageError = useSignal(false);
 
@@ -50,10 +50,26 @@ export const CopilotChatAttachmentRenderer = component$<CopilotChatAttachmentRen
 
       case "audio":
         return (
-          <div class={props.class ?? ""} style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-            <audio src={src} controls preload="metadata" style={{ maxWidth: "300px", width: "100%", height: "40px" }} />
+          <div
+            class={props.class ?? ""}
+            style={{ display: "flex", flexDirection: "column", gap: "4px" }}
+          >
+            <audio
+              src={src}
+              controls
+              preload="metadata"
+              style={{ maxWidth: "300px", width: "100%", height: "40px" }}
+            />
             {props.filename && (
-              <span style={{ fontSize: "12px", color: "#999", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "300px" }}>
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#999",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  maxWidth: "300px",
+                }}
+              >
                 {props.filename}
               </span>
             )}
@@ -85,14 +101,26 @@ export const CopilotChatAttachmentRenderer = component$<CopilotChatAttachmentRen
               background: "#f5f5f5",
             }}
           >
-            <span style={{ fontSize: "12px", fontWeight: "bold", textTransform: "uppercase" }}>
+            <span
+              style={{
+                fontSize: "12px",
+                fontWeight: "bold",
+                textTransform: "uppercase",
+              }}
+            >
               {getDocumentIcon(props.source.mimeType ?? "")}
             </span>
-            <span style={{ fontSize: "14px", color: "#999", overflow: "hidden", textOverflow: "ellipsis" }}>
+            <span
+              style={{
+                fontSize: "14px",
+                color: "#999",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               {props.filename || props.source.mimeType || "Unknown type"}
             </span>
           </div>
         );
     }
-  },
-);
+  });

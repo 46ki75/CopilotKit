@@ -44,10 +44,7 @@ export {
   type CopilotChatToolCallsViewProps,
 } from "./CopilotChatToolCallsView";
 
-export {
-  CopilotChatView,
-  type CopilotChatViewProps,
-} from "./CopilotChatView";
+export { CopilotChatView, type CopilotChatViewProps } from "./CopilotChatView";
 
 export {
   CopilotChat as CopilotChatV2,
@@ -74,15 +71,9 @@ export {
   type CopilotModalHeaderProps,
 } from "./CopilotModalHeader";
 
-export {
-  CopilotSidebar,
-  type CopilotSidebarProps,
-} from "./CopilotSidebar";
+export { CopilotSidebar, type CopilotSidebarProps } from "./CopilotSidebar";
 
-export {
-  CopilotPopup,
-  type CopilotPopupProps,
-} from "./CopilotPopup";
+export { CopilotPopup, type CopilotPopupProps } from "./CopilotPopup";
 
 export {
   CopilotChatAttachmentQueue,
