@@ -229,7 +229,8 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
           type="submit"
           disabled={isLoading.value || !input.value.trim()}
           style={{
-            background: isLoading.value || !input.value.trim() ? "#ccc" : "#333",
+            background:
+              isLoading.value || !input.value.trim() ? "#ccc" : "#333",
             color: "white",
             border: "none",
             borderRadius: "50%",
@@ -238,7 +239,10 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            cursor: isLoading.value || !input.value.trim() ? "not-allowed" : "pointer",
+            cursor:
+              isLoading.value || !input.value.trim()
+                ? "not-allowed"
+                : "pointer",
             flexShrink: "0",
           }}
         >
