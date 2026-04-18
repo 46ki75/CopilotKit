@@ -195,9 +195,9 @@ export function useThreads({
       selectFromStore(store, ɵselectIsFetchingNextPage, isFetchingMoreThreadsSig),
       store.select(ɵselectThreads).subscribe((coreThreads) => {
         threadsSig.value = coreThreads.map(
-          ({ id, agentId: tid, name, archived, createdAt, updatedAt }) => ({
+          ({ id, agentId: threadAgentId, name, archived, createdAt, updatedAt }) => ({
             id,
-            agentId: tid,
+            agentId: threadAgentId,
             name,
             archived,
             createdAt,
@@ -231,7 +231,15 @@ export function useThreads({
     error: errorSig,
     hasMoreThreads: hasMoreThreadsSig,
     isFetchingMoreThreads: isFetchingMoreThreadsSig,
-    fetchMoreThreads: () => storeSig.value?.fetchNextPage(),
+    fetchMoreThreads: () => {
+      if (!storeSig.value) {
+        console.warn(
+          "[CopilotKit] useThreads: fetchMoreThreads called before the thread store was initialized.",
+        );
+        return;
+      }
+      storeSig.value.fetchNextPage();
+    },
     renameThread: (threadId: string, name: string) =>
       storeSig.value
         ? storeSig.value.renameThread(threadId, name)
