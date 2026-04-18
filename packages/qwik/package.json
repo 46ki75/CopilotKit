@@ -1,7 +1,8 @@
 {
-  "name": "@copilotkit/qwik",
-  "version": "1.56.2",
+  "name": "@cloud.ikuma/copilotkit-qwik",
+  "version": "0.1.0",
   "description": "CopilotKit bindings for Qwik",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -39,10 +40,5 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/CopilotKit/CopilotKit.git"
   }
 }
