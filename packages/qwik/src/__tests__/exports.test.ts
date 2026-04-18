@@ -46,6 +46,25 @@ describe("@copilotkit/qwik module exports", () => {
     expect(typeof mod.useCopilotChat).toBe("function");
   });
 
+  // ---- v2 API hooks ----
+  it("should export useAgent from hooks module", async () => {
+    const mod = await import("../hooks/use-agent");
+    expect(mod.useAgent).toBeDefined();
+    expect(typeof mod.useAgent).toBe("function");
+  });
+
+  it("should export useAgentContext from hooks module", async () => {
+    const mod = await import("../hooks/use-agent-context");
+    expect(mod.useAgentContext).toBeDefined();
+    expect(typeof mod.useAgentContext).toBe("function");
+  });
+
+  it("should export useFrontendTool from hooks module", async () => {
+    const mod = await import("../hooks/use-frontend-tool");
+    expect(mod.useFrontendTool).toBeDefined();
+    expect(typeof mod.useFrontendTool).toBe("function");
+  });
+
   // ---- Barrel re-exports (hooks index) ----
   it("should re-export all hooks from hooks/index", async () => {
     const mod = await import("../hooks/index");
@@ -54,6 +73,10 @@ describe("@copilotkit/qwik module exports", () => {
     expect(mod.useCopilotReadable).toBeDefined();
     expect(mod.useCopilotAction).toBeDefined();
     expect(mod.useCopilotChat).toBeDefined();
+    // v2 API
+    expect(mod.useAgent).toBeDefined();
+    expect(mod.useAgentContext).toBeDefined();
+    expect(mod.useFrontendTool).toBeDefined();
   });
 
   // ---- Barrel re-exports (context index) ----

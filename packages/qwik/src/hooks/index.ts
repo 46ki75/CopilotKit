@@ -12,3 +12,18 @@ export {
   type UseCopilotChatOptions,
   type UseCopilotChatReturn,
 } from "./use-copilot-chat";
+// v2 API
+export {
+  useAgent,
+  type UseAgentOptions,
+  type UseAgentReturn,
+} from "./use-agent";
+export {
+  useAgentContext,
+  type AgentContextInput,
+  type JsonSerializable,
+} from "./use-agent-context";
+export {
+  useFrontendTool,
+  type FrontendToolConfig,
+} from "./use-frontend-tool";

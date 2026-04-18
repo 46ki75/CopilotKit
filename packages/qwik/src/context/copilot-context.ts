@@ -3,7 +3,12 @@ import {
   type NoSerialize,
   type Signal,
 } from "@builder.io/qwik";
-import type { CopilotKitCore } from "@copilotkit/core";
+import type {
+  CopilotKitCore,
+  CopilotKitCoreErrorCode,
+  CopilotRuntimeTransport,
+} from "@copilotkit/core";
+import type { AbstractAgent } from "@ag-ui/client";
 
 /**
  * Configuration options for the CopilotKit Qwik provider.
@@ -13,6 +18,12 @@ export interface CopilotKitConfig {
    * The endpoint for the Copilot Runtime instance.
    */
   runtimeUrl?: string;
+
+  /**
+   * Transport style for the CopilotRuntime endpoint.
+   * Defaults to "auto".
+   */
+  runtimeTransport?: CopilotRuntimeTransport;
 
   /**
    * Additional headers to be sent with the request.
@@ -29,6 +40,26 @@ export interface CopilotKitConfig {
    * Custom properties to be sent with the request.
    */
   properties?: Record<string, unknown>;
+
+  /**
+   * The Copilot Cloud public API key.
+   */
+  publicApiKey?: string;
+
+  /**
+   * Agents for local development without a CopilotRuntime endpoint.
+   * Use only in development; production requires a CopilotRuntime.
+   */
+  agents__unsafe_dev_only?: Record<string, AbstractAgent>;
+
+  /**
+   * Error handler called when CopilotKit encounters an error.
+   */
+  onError?: (event: {
+    error: Error;
+    code: CopilotKitCoreErrorCode;
+    context: Record<string, unknown>;
+  }) => void | Promise<void>;
 }
 
 /**
