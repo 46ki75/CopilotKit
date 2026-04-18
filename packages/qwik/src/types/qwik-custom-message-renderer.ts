@@ -1,4 +1,4 @@
-import { Message } from "@ag-ui/core";
+import type { Message } from "@ag-ui/core";
 import type { Component } from "@builder.io/qwik";
 
 export type QwikCustomMessageRendererPosition = "before" | "after";

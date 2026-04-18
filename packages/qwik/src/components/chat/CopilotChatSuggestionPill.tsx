@@ -1,4 +1,5 @@
-import { component$, type QRL } from "@builder.io/qwik";
+import { component$ } from '@builder.io/qwik';
+import type { QRL } from '@builder.io/qwik';
 
 export interface CopilotChatSuggestionPillProps {
   title: string;

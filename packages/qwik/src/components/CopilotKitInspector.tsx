@@ -1,9 +1,4 @@
-import {
-  component$,
-  useSignal,
-  useVisibleTask$,
-  type QRL,
-} from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type { CopilotKitCore } from "@copilotkit/core";
 
 type Anchor = "top-left" | "top-right" | "bottom-left" | "bottom-right";

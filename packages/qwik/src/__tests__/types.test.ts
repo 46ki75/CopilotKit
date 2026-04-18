@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type {
   CopilotKitConfig,
-  CopilotKitContextValue,
 } from "../context/copilot-context";
 import type { DocumentPointer } from "../types/document-pointer";
 import type {
@@ -9,10 +8,8 @@ import type {
   FrontendActionAvailability,
 } from "../types/frontend-action";
 import type { UseCopilotReadableOptions } from "../hooks/use-copilot-readable";
-import type { UseCopilotActionOptions } from "../hooks/use-copilot-action";
 import type {
   UseCopilotChatOptions,
-  UseCopilotChatReturn,
 } from "../hooks/use-copilot-chat";
 import type { CopilotChatProps } from "../components/copilot-chat";
 import type {
@@ -23,7 +20,6 @@ import type {
 import type { SandboxFunction } from "../types/sandbox-function";
 import type {
   CopilotChatLabels,
-  CopilotChatConfigurationValue,
 } from "../context/copilot-chat-configuration-context";
 
 /**

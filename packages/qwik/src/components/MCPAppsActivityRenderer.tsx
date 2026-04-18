@@ -2,7 +2,7 @@ import { component$, useContext, useSignal, useVisibleTask$ } from "@builder.io/
 import { z } from "zod";
 import type { AbstractAgent, RunAgentResult } from "@ag-ui/client";
 import { CopilotKitContextId } from "../context/copilot-context";
-import { CopilotKitCoreQwik } from "../lib/qwik-core";
+import type { CopilotKitCoreQwik } from "../lib/qwik-core";
 
 // Protocol version supported
 const PROTOCOL_VERSION = "2025-06-18";

@@ -1,4 +1,4 @@
-import { FrontendTool, ToolCallStatus } from "@copilotkit/core";
+import type { FrontendTool, ToolCallStatus } from "@copilotkit/core";
 import type { Component } from "@builder.io/qwik";
 
 export type QwikHumanInTheLoop<

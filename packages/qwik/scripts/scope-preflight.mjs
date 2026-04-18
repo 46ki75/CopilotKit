@@ -7,7 +7,7 @@
  */
 
 import { readFileSync, writeFileSync } from "fs";
-import postcss from "postcss";
+import { parse } from "postcss";
 
 const SCOPE = "[data-copilotkit]";
 const file = process.argv[2];
@@ -90,7 +90,7 @@ function scopeChildren(node) {
 
 // --- Main ---
 const css = readFileSync(file, "utf8");
-const root = postcss.parse(css);
+const root = parse(css);
 
 root.walkAtRules("layer", (layer) => {
   if (layer.params !== "base") return;

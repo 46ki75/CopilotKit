@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { StandardSchemaV1, InferSchemaOutput } from "@copilotkit/shared";
-import { QwikToolCallRenderer } from "./qwik-tool-call-renderer";
-import { ToolCallStatus } from "@copilotkit/core";
+import type { QwikToolCallRenderer } from "./qwik-tool-call-renderer";
+import type { ToolCallStatus } from "@copilotkit/core";
 import type { JSXOutput } from "@builder.io/qwik";
 
 type RenderProps<T> =

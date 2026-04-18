@@ -1,6 +1,6 @@
 import { useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import type { JSXOutput } from "@builder.io/qwik";
-import { ToolCall, ToolMessage } from "@ag-ui/core";
+import type { ToolCall, ToolMessage } from "@ag-ui/core";
 import { ToolCallStatus } from "@copilotkit/core";
 import { DEFAULT_AGENT_ID, partialJSONParse } from "@copilotkit/shared";
 import { CopilotKitContextId } from "../context/copilot-context";

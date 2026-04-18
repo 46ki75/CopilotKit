@@ -1,11 +1,5 @@
-import {
-  component$,
-  useContext,
-  useSignal,
-  useVisibleTask$,
-  $,
-  type QRL,
-} from "@builder.io/qwik";
+import { component$, useContext, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
+
 import { HttpAgent } from "@ag-ui/client";
 import type { AbstractAgent } from "@ag-ui/client";
 import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkit/shared";
@@ -16,7 +10,7 @@ import { useAgent } from "../../hooks/use-agent";
 import { useSuggestions } from "../../hooks/use-suggestions";
 import { useAttachments } from "../../hooks/use-attachments";
 import { CopilotChatConfigurationProvider, useCopilotChatConfiguration } from "../copilot-chat-configuration-provider";
-import { CopilotChatView, type CopilotChatViewProps } from "./CopilotChatView";
+import { CopilotChatView } from './CopilotChatView';
 import type { CopilotChatLabels } from "../../context/copilot-chat-configuration-context";
 
 export interface CopilotChatProps {

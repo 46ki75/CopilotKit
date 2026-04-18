@@ -1,6 +1,6 @@
 import { useContext } from "@builder.io/qwik";
 import type { JSXOutput } from "@builder.io/qwik";
-import { ActivityMessage } from "@ag-ui/core";
+import type { ActivityMessage } from "@ag-ui/core";
 import { DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import { CopilotKitContextId } from "../context/copilot-context";
 import { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";

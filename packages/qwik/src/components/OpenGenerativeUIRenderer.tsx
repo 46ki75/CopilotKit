@@ -160,7 +160,7 @@ const OpenGenerativeUIActivityRendererInner = component$<InnerProps>(
       let previewSandbox: SandboxInstance | null = null;
       let previewReady = false;
       let sandboxReady = false;
-      let executedIndex = 0;
+      let _executedIndex = 0;
       let pendingQueue: string[] = [];
       let jsFunctionsInjected = false;
       let cancelled = false;
@@ -296,7 +296,7 @@ const OpenGenerativeUIActivityRendererInner = component$<InnerProps>(
           }
 
           // Reset state for new html
-          executedIndex = 0;
+          _executedIndex = 0;
           jsFunctionsInjected = false;
           sandboxReady = false;
           pendingQueue = [];
@@ -370,7 +370,7 @@ const OpenGenerativeUIActivityRendererInner = component$<InnerProps>(
         if (expressions && expressions.length > prevJsExpressionsLength) {
           const newExprs = expressions.slice(prevJsExpressionsLength);
           prevJsExpressionsLength = expressions.length;
-          executedIndex = expressions.length;
+          _executedIndex = expressions.length;
           if (sandboxReady && sandbox) {
             (async () => {
               for (const expr of newExprs) {

@@ -1,5 +1,4 @@
 import { component$, useContext, useTask$, useSignal, Slot } from "@builder.io/qwik";
-import type { JSXOutput } from "@builder.io/qwik";
 import { z } from "zod";
 import { CopilotKitContextId } from "../context/copilot-context";
 import { defineToolCallRenderer } from "../types/define-tool-call-renderer";

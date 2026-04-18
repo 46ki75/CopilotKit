@@ -1,11 +1,5 @@
-import {
-  component$,
-  Slot,
-  useSignal,
-  useContextProvider,
-  useVisibleTask$,
-  type QRL,
-} from "@builder.io/qwik";
+import { component$, Slot, useSignal, useContextProvider, useVisibleTask$ } from '@builder.io/qwik';
+import type { QRL } from '@builder.io/qwik';
 import type { Message } from "@ag-ui/core";
 import type { Suggestion } from "@copilotkit/core";
 import type { Attachment } from "@copilotkit/shared";

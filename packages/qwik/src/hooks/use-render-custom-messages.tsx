@@ -1,6 +1,6 @@
 import { useContext } from "@builder.io/qwik";
 import type { JSXOutput } from "@builder.io/qwik";
-import { Message } from "@ag-ui/core";
+import type { Message } from "@ag-ui/core";
 import { CopilotKitContextId } from "../context/copilot-context";
 import { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";
 import type { CopilotKitCoreQwik } from "../lib/qwik-core";

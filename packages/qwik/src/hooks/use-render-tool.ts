@@ -1,7 +1,7 @@
 import { useContext, useVisibleTask$ } from "@builder.io/qwik";
 import type { StandardSchemaV1, InferSchemaOutput } from "@copilotkit/shared";
 import type { JSXOutput } from "@builder.io/qwik";
-import { ToolCallStatus } from "@copilotkit/core";
+import type { ToolCallStatus } from "@copilotkit/core";
 import { CopilotKitContextId } from "../context/copilot-context";
 import { defineToolCallRenderer } from "../types/define-tool-call-renderer";
 import type { CopilotKitCoreQwik } from "../lib/qwik-core";

@@ -1,17 +1,8 @@
-import {
-  component$,
-  Slot,
-  useContextProvider,
-  useSignal,
-  useVisibleTask$,
-  type NoSerialize,
-  noSerialize,
-} from "@builder.io/qwik";
+import { component$, Slot, useContextProvider, useSignal, useVisibleTask$, noSerialize } from '@builder.io/qwik';
+import type { NoSerialize } from '@builder.io/qwik';
 import { CopilotKitCoreQwik } from "../lib/qwik-core";
-import {
-  CopilotKitContextId,
-  type CopilotKitConfig,
-} from "../context/copilot-context";
+import { CopilotKitContextId } from '../context/copilot-context';
+import type { CopilotKitConfig } from '../context/copilot-context';
 
 const COPILOT_CLOUD_CHAT_URL = "https://api.cloud.copilotkit.ai/copilotkit/v1";
 const HEADER_PUBLIC_API_KEY = "X-CopilotCloud-Public-Api-Key";
@@ -67,7 +58,7 @@ export const CopilotKit = component$<CopilotKitConfig>((props) => {
       (props.publicApiKey ? COPILOT_CLOUD_CHAT_URL : undefined);
 
     // Merge public API key header with any user-supplied headers.
-    const headers: Record<string, string> = { ...(props.headers ?? {}) };
+    const headers: Record<string, string> = { ...props.headers };
     if (props.publicApiKey) {
       headers[HEADER_PUBLIC_API_KEY] = props.publicApiKey;
     }

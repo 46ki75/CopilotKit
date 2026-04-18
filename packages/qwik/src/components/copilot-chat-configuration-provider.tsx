@@ -6,12 +6,8 @@ import {
   useSignal,
 } from "@builder.io/qwik";
 import { DEFAULT_AGENT_ID, randomUUID } from "@copilotkit/shared";
-import {
-  CopilotChatConfigurationContextId,
-  CopilotChatDefaultLabels,
-  type CopilotChatLabels,
-  type CopilotChatConfigurationValue,
-} from "../context/copilot-chat-configuration-context";
+import { CopilotChatConfigurationContextId, CopilotChatDefaultLabels } from '../context/copilot-chat-configuration-context';
+import type { CopilotChatLabels, CopilotChatConfigurationValue } from '../context/copilot-chat-configuration-context';
 
 // Re-export for convenience
 export { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";
@@ -29,8 +25,8 @@ export const CopilotChatConfigurationProvider =
 
     const mergedLabels: CopilotChatLabels = {
       ...CopilotChatDefaultLabels,
-      ...(parentConfig?.labels ?? {}),
-      ...(props.labels ?? {}),
+      ...parentConfig?.labels,
+      ...props.labels,
     };
 
     const resolvedAgentId =

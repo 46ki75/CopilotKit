@@ -1,4 +1,4 @@
-import { useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { useSignal } from "@builder.io/qwik";
 import type { Signal } from "@builder.io/qwik";
 import {
   randomUUID,

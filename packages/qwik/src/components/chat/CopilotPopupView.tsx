@@ -3,7 +3,6 @@ import {
   useContext,
   useSignal,
   useVisibleTask$,
-  Slot,
 } from "@builder.io/qwik";
 import {
   CopilotChatConfigurationContextId,

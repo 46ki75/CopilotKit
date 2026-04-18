@@ -38,6 +38,7 @@
     "dev": "tsdown --watch",
     "check-types": "tsc --noEmit",
     "format": "oxfmt --write .",
+    "lint": "oxlint --fix . -A no-img-element",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -54,6 +55,7 @@
     "@tailwindcss/cli": "^4.1.11",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
+    "oxlint": "^1.51.0",
     "postcss": "^8.0.0",
     "tailwindcss": "^4.0.8",
     "tsdown": "^0.20.3",

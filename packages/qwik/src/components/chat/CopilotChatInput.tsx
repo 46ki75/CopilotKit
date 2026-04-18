@@ -1,4 +1,5 @@
-import { component$, useSignal, type QRL } from "@builder.io/qwik";
+import { component$, useSignal } from '@builder.io/qwik';
+import type { QRL } from '@builder.io/qwik';
 import type { Attachment } from "@copilotkit/shared";
 import {
   CopilotChatDefaultLabels,

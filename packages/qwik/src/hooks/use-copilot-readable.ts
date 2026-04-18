@@ -1,6 +1,5 @@
 import { useContext, useTask$, useSignal } from "@builder.io/qwik";
 import { CopilotKitContextId } from "../context/copilot-context";
-import { requireCore } from "./use-copilot-context";
 
 /**
  * Options for the useCopilotReadable hook.

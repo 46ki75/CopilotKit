@@ -1,12 +1,8 @@
 import type { QwikToolCallRenderer } from "../types/qwik-tool-call-renderer";
 import type { QwikActivityMessageRenderer } from "../types/qwik-activity-message-renderer";
 import type { QwikCustomMessageRenderer } from "../types/qwik-custom-message-renderer";
-import {
-  CopilotKitCore,
-  type CopilotKitCoreConfig,
-  type CopilotKitCoreSubscriber,
-  type CopilotKitCoreSubscription,
-} from "@copilotkit/core";
+import { CopilotKitCore } from '@copilotkit/core';
+import type { CopilotKitCoreConfig, CopilotKitCoreSubscriber, CopilotKitCoreSubscription } from '@copilotkit/core';
 
 export interface CopilotKitCoreQwikConfig extends CopilotKitCoreConfig {
   renderToolCalls?: QwikToolCallRenderer<any>[];

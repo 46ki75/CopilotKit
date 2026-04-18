@@ -1,5 +1,6 @@
 import { component$, Slot } from "@builder.io/qwik";
-import { CopilotChat, type CopilotChatProps } from "./CopilotChat";
+import { CopilotChat } from './CopilotChat';
+import type { CopilotChatProps } from './CopilotChat';
 
 export type CopilotPopupProps = CopilotChatProps & {
   headerTitle?: string;

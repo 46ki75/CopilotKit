@@ -6,7 +6,6 @@ import {
 } from "@builder.io/qwik";
 import {
   CopilotChatConfigurationContextId,
-  CopilotChatDefaultLabels,
 } from "../../context/copilot-chat-configuration-context";
 import { CopilotChatConfigurationProvider } from "../copilot-chat-configuration-provider";
 import { CopilotChatToggleButton } from "./CopilotChatToggleButton";

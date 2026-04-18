@@ -1,11 +1,5 @@
-import {
-  useContext,
-  useSignal,
-  useVisibleTask$,
-  type NoSerialize,
-  noSerialize,
-  type Signal,
-} from "@builder.io/qwik";
+import { useContext, useSignal, useVisibleTask$, noSerialize } from '@builder.io/qwik';
+import type { NoSerialize, Signal } from '@builder.io/qwik';
 import type { AbstractAgent, Message, State } from "@ag-ui/client";
 import { CopilotKitContextId } from "../context/copilot-context";
 

@@ -1,9 +1,5 @@
-import {
-  useContext,
-  useSignal,
-  useVisibleTask$,
-  type Signal,
-} from "@builder.io/qwik";
+import { useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import type { Signal } from '@builder.io/qwik';
 import { CopilotKitContextId } from "../context/copilot-context";
 import { useAgent } from "./use-agent";
 import type {

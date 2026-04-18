@@ -1,5 +1,5 @@
 import type { StandardSchemaV1 } from "@copilotkit/shared";
-import { ToolCallStatus } from "@copilotkit/core";
+import type { ToolCallStatus } from "@copilotkit/core";
 import type { Component } from "@builder.io/qwik";
 
 export interface QwikToolCallRenderer<T = unknown> {

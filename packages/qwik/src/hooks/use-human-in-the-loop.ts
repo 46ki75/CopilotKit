@@ -1,14 +1,12 @@
 import { useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik";
-import type { QRL, Signal } from "@builder.io/qwik";
+import type { Signal } from "@builder.io/qwik";
 import type { FrontendToolHandlerContext } from "@copilotkit/core";
 import { CopilotKitContextId } from "../context/copilot-context";
 
 /**
  * Configuration for a human-in-the-loop tool.
  */
-export interface HumanInTheLoopConfig<
-  T extends Record<string, unknown> = Record<string, unknown>,
-> {
+export interface HumanInTheLoopConfig {
   /**
    * The name of the tool.
    */
@@ -92,7 +90,7 @@ export interface UseHumanInTheLoopReturn<
  */
 export function useHumanInTheLoop<
   T extends Record<string, unknown> = Record<string, unknown>,
->(config: HumanInTheLoopConfig<T>): UseHumanInTheLoopReturn<T> {
+>(config: HumanInTheLoopConfig): UseHumanInTheLoopReturn<T> {
   const ctx = useContext(CopilotKitContextId);
   const registered = useSignal(false);
   const isWaitingSig = useSignal(false);

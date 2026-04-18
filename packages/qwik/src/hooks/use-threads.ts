@@ -1,14 +1,7 @@
 import { useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import type { Signal } from "@builder.io/qwik";
-import {
-  ɵcreateThreadStore,
-  ɵselectThreads,
-  ɵselectThreadsError,
-  ɵselectThreadsIsLoading,
-  ɵselectHasNextPage,
-  ɵselectIsFetchingNextPage,
-  type ɵThreadStore,
-} from "@copilotkit/core";
+import { ɵcreateThreadStore, ɵselectThreads, ɵselectThreadsError, ɵselectThreadsIsLoading, ɵselectHasNextPage, ɵselectIsFetchingNextPage } from '@copilotkit/core';
+import type { ɵThreadStore } from '@copilotkit/core';
 import { CopilotKitContextId } from "../context/copilot-context";
 
 /**

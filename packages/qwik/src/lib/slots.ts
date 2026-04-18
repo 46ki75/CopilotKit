@@ -1,4 +1,4 @@
-import { useSignal, type Signal } from "@builder.io/qwik";
+import { useSignal } from '@builder.io/qwik';
 
 /**
  * Shallow equality comparison for plain objects.
