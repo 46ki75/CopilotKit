@@ -1,6 +1,7 @@
 import type { StandardSchemaV1, InferSchemaOutput } from "@copilotkit/shared";
 import type { Component } from "@builder.io/qwik";
 import { useFrontendTool } from "./use-frontend-tool";
+import { useRenderTool } from "./use-render-tool";
 
 type InferRenderProps<T> = T extends StandardSchemaV1
   ? InferSchemaOutput<T>
@@ -11,10 +12,10 @@ type InferRenderProps<T> = T extends StandardSchemaV1
  *
  * This is the Qwik equivalent of `useComponent` from `@copilotkit/react-core`.
  *
- * This hook is a convenience wrapper around `useFrontendTool` that:
- * - builds a model-facing tool description,
- * - forwards optional schema parameters (any Standard Schema V1 compatible library),
- * - renders your component with tool call parameters.
+ * This hook is a convenience wrapper that:
+ * - registers a frontend tool via `useFrontendTool`,
+ * - registers the component renderer via `useRenderTool`,
+ * - forwards optional schema parameters (any Standard Schema V1 compatible library).
  *
  * @typeParam TSchema - Schema describing tool parameters, or `undefined` when no schema is given.
  * @param config - Tool registration config.
@@ -38,4 +39,26 @@ export function useComponent<
     description: fullDescription,
     agentId: config.agentId,
   });
+
+  // Register the render function so tool calls display the component in chat.
+  if (config.parameters) {
+    useRenderTool({
+      name: config.name,
+      parameters: config.parameters as StandardSchemaV1,
+      render: (props: any) => {
+        const Comp = config.render;
+        return <Comp {...props.parameters} />;
+      },
+      ...(config.agentId ? { agentId: config.agentId } : {}),
+    });
+  } else {
+    useRenderTool({
+      name: config.name as "*",
+      render: (props: any) => {
+        const Comp = config.render;
+        return <Comp {...props.parameters} />;
+      },
+      ...(config.agentId ? { agentId: config.agentId } : {}),
+    });
+  }
 }
