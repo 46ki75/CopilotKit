@@ -114,89 +114,116 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
     const core = ctx.coreRef.value;
     if (!core) return;
 
-    // Prefer the "default" agent; fall back to the first registered agent.
-    // Object.values() order is defined for string keys in ES2015+ (insertion order),
-    // which is the minimum target of this package.
-    const agent =
-      core.getAgent(DEFAULT_AGENT_ID) ??
-      (Object.values(core.agents)[0] as AbstractAgent | undefined);
-    if (!agent) return;
-
-    agentSig.value = noSerialize(agent);
-
     // Lazily create the Set on the client (so Qwik's SSR serializer never sees it).
     if (!shownMessageIds.value) {
       shownMessageIds.value = noSerialize(new Set<string>());
     }
-    const shownIds = shownMessageIds.value!;
 
-    // Sync any messages the agent already has (e.g. from a previous session).
-    for (const msg of agent.messages) {
-      if (msg.role === "user" || msg.role === "assistant") {
-        if (!shownIds.has(msg.id)) {
-          shownIds.add(msg.id);
-          messages.value = [
-            ...messages.value,
-            {
-              role: msg.role as "user" | "assistant",
-              content: contentToText(msg.content),
-            },
-          ];
-        }
-      }
-    }
+    let detached = false;
+    let agentSubscription: { unsubscribe: () => void } | undefined;
 
-    const subscription = core.subscribeToAgentWithOptions(agent, {
-      onMessagesChanged: ({ messages: agentMessages }) => {
-        // Append only new assistant messages that we haven't shown yet.
-        const newEntries: ChatMessage[] = [];
-        for (const msg of agentMessages) {
-          if (
-            (msg.role === "assistant" || msg.role === "user") &&
-            !shownIds.has(msg.id)
-          ) {
+    const setupAgent = (agent: AbstractAgent) => {
+      // Tear down any previous per-agent subscription first.
+      agentSubscription?.unsubscribe();
+
+      agentSig.value = noSerialize(agent);
+
+      const shownIds = shownMessageIds.value!;
+
+      // Sync any messages the agent already has (e.g. from a previous session).
+      for (const msg of agent.messages) {
+        if (msg.role === "user" || msg.role === "assistant") {
+          if (!shownIds.has(msg.id)) {
             shownIds.add(msg.id);
-            newEntries.push({
-              role: msg.role as "user" | "assistant",
-              content: contentToText(msg.content),
-            });
+            messages.value = [
+              ...messages.value,
+              {
+                role: msg.role as "user" | "assistant",
+                content: contentToText(msg.content),
+              },
+            ];
           }
         }
-        if (newEntries.length > 0) {
-          messages.value = [...messages.value, ...newEntries];
+      }
+
+      agentSubscription = core.subscribeToAgentWithOptions(agent, {
+        onMessagesChanged: ({ messages: agentMessages }) => {
+          // Append only new assistant messages that we haven't shown yet.
+          const newEntries: ChatMessage[] = [];
+          for (const msg of agentMessages) {
+            if (
+              (msg.role === "assistant" || msg.role === "user") &&
+              !shownIds.has(msg.id)
+            ) {
+              shownIds.add(msg.id);
+              newEntries.push({
+                role: msg.role as "user" | "assistant",
+                content: contentToText(msg.content),
+              });
+            }
+          }
+          if (newEntries.length > 0) {
+            messages.value = [...messages.value, ...newEntries];
+          }
+        },
+        onRunInitialized: () => {
+          isLoading.value = true;
+        },
+        onRunFinalized: () => {
+          isLoading.value = false;
+        },
+        onRunFailed: () => {
+          isLoading.value = false;
+        },
+        onRunErrorEvent: () => {
+          isLoading.value = false;
+        },
+      });
+
+      const connectAgent = async () => {
+        try {
+          await core.connectAgent({ agent });
+        } catch (error) {
+          if (!detached) {
+            console.error("CopilotChat: connectAgent failed", error);
+          }
         }
-      },
-      onRunInitialized: () => {
-        isLoading.value = true;
-      },
-      onRunFinalized: () => {
-        isLoading.value = false;
-      },
-      onRunFailed: () => {
-        isLoading.value = false;
-      },
-      onRunErrorEvent: () => {
-        isLoading.value = false;
+      };
+      connectAgent();
+    };
+
+    // Prefer the "default" agent; fall back to the first registered agent.
+    // Object.values() order is defined for string keys in ES2015+ (insertion order),
+    // which is the minimum target of this package.
+    const initialAgent =
+      core.getAgent(DEFAULT_AGENT_ID) ??
+      (Object.values(core.agents)[0] as AbstractAgent | undefined);
+    if (initialAgent) {
+      setupAgent(initialAgent);
+    }
+
+    // Subscribe to agent-list changes so we set up the agent as soon as it
+    // becomes available (e.g. after the /info handshake with the runtime).
+    const coreSubscription = core.subscribe({
+      onAgentsChanged: ({ agents }) => {
+        const newAgent =
+          agents[DEFAULT_AGENT_ID] ??
+          (Object.values(agents)[0] as AbstractAgent | undefined);
+        if (newAgent) {
+          setupAgent(newAgent);
+        }
       },
     });
 
-    let detached = false;
-    const connectAgent = async () => {
-      try {
-        await core.connectAgent({ agent });
-      } catch (error) {
-        if (!detached) {
-          console.error("CopilotChat: connectAgent failed", error);
-        }
-      }
-    };
-    connectAgent();
-
     cleanup(() => {
       detached = true;
-      subscription.unsubscribe();
+      agentSubscription?.unsubscribe();
+      coreSubscription.unsubscribe();
+      const currentAgent = agentSig.value;
       agentSig.value = undefined;
-      void agent.detachActiveRun().catch(() => {});
+      if (currentAgent) {
+        void (currentAgent as AbstractAgent).detachActiveRun().catch(() => {});
+      }
     });
   });
 

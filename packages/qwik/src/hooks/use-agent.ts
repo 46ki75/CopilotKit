@@ -89,36 +89,62 @@ export function useAgent(options: UseAgentOptions = {}): UseAgentReturn {
     if (!core) return;
 
     const agentId = options.agentId ?? "default";
+
+    // Track the per-agent subscription separately so it can be replaced
+    // when the agent becomes available after the initial runtime connection.
+    let agentSubscription: { unsubscribe: () => void } | undefined;
+
+    const setupAgent = (agent: AbstractAgent) => {
+      // Tear down any previous per-agent subscription first.
+      agentSubscription?.unsubscribe();
+
+      agentSig.value = noSerialize(agent);
+      messagesSig.value = agent.messages ?? [];
+      stateSig.value = agent.state ?? {};
+
+      agentSubscription = core.subscribeToAgentWithOptions(agent, {
+        onMessagesChanged: ({ messages }) => {
+          messagesSig.value = [...messages];
+        },
+        onStateChanged: ({ state }) => {
+          stateSig.value = { ...state };
+        },
+        onRunInitialized: () => {
+          isRunningSig.value = true;
+        },
+        onRunFinalized: () => {
+          isRunningSig.value = false;
+        },
+        onRunFailed: () => {
+          isRunningSig.value = false;
+        },
+        onRunErrorEvent: () => {
+          isRunningSig.value = false;
+        },
+      });
+    };
+
+    // Try to get the agent right away (may be undefined while the runtime
+    // connection is still being established).
     const agent = core.getAgent(agentId);
-    if (!agent) return;
+    if (agent) {
+      setupAgent(agent);
+    }
 
-    agentSig.value = noSerialize(agent);
-    messagesSig.value = agent.messages ?? [];
-    stateSig.value = agent.state ?? {};
-
-    const subscription = core.subscribeToAgentWithOptions(agent, {
-      onMessagesChanged: ({ messages }) => {
-        messagesSig.value = [...messages];
-      },
-      onStateChanged: ({ state }) => {
-        stateSig.value = { ...state };
-      },
-      onRunInitialized: () => {
-        isRunningSig.value = true;
-      },
-      onRunFinalized: () => {
-        isRunningSig.value = false;
-      },
-      onRunFailed: () => {
-        isRunningSig.value = false;
-      },
-      onRunErrorEvent: () => {
-        isRunningSig.value = false;
+    // Subscribe to agent-list changes so that we set up the agent as soon as
+    // it becomes available (e.g. after the /info handshake with the runtime).
+    const coreSubscription = core.subscribe({
+      onAgentsChanged: ({ agents }) => {
+        const newAgent = agents[agentId];
+        if (newAgent) {
+          setupAgent(newAgent);
+        }
       },
     });
 
     cleanup(() => {
-      subscription.unsubscribe();
+      agentSubscription?.unsubscribe();
+      coreSubscription.unsubscribe();
       agentSig.value = undefined;
     });
   });
