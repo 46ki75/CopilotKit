@@ -35,6 +35,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "check-types": "tsc --noEmit",
+    "format": "oxfmt --write .",
     "test": "vitest run",
     "test:watch": "vitest"
   },
