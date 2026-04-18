@@ -7,7 +7,7 @@ import {
   type NoSerialize,
   noSerialize,
 } from "@builder.io/qwik";
-import { CopilotKitCore } from "@copilotkit/core";
+import { CopilotKitCoreQwik } from "../lib/qwik-core";
 import {
   CopilotKitContextId,
   type CopilotKitConfig,
@@ -54,7 +54,7 @@ const HEADER_PUBLIC_API_KEY = "X-CopilotCloud-Public-Api-Key";
  */
 export const CopilotKit = component$<CopilotKitConfig>((props) => {
   const isLoading = useSignal(false);
-  const coreRef = useSignal<NoSerialize<CopilotKitCore>>(undefined);
+  const coreRef = useSignal<NoSerialize<CopilotKitCoreQwik>>(undefined);
 
   // CopilotKitCore is a non-serializable class instance. We use
   // useVisibleTask$ to create it once on the client and noSerialize to
@@ -72,7 +72,7 @@ export const CopilotKit = component$<CopilotKitConfig>((props) => {
       headers[HEADER_PUBLIC_API_KEY] = props.publicApiKey;
     }
 
-    const core = new CopilotKitCore({
+    const core = new CopilotKitCoreQwik({
       runtimeUrl,
       runtimeTransport: props.runtimeTransport ?? "auto",
       headers,
