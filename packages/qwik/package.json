@@ -1,7 +1,7 @@
 {
-  "name": "@copilotkit/qwik",
+  "name": "@cloud.ikuma/copilotkit-qwik",
   "version": "1.56.2",
-  "description": "CopilotKit bindings for Qwik",
+  "description": "Individual Qwik package for CopilotKit, providing tools and components to build AI assistants and automation with Qwik.",
   "keywords": [
     "ai",
     "assistant",
@@ -11,11 +11,11 @@
     "javascript",
     "qwik"
   ],
-  "homepage": "https://github.com/CopilotKit/CopilotKit",
+  "homepage": "https://github.com/46ki75/CopilotKit",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CopilotKit/CopilotKit.git"
+    "url": "https://github.com/46ki75/CopilotKit.git"
   },
   "type": "module",
   "main": "./dist/index.cjs",
