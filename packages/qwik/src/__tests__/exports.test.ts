@@ -65,6 +65,30 @@ describe("@copilotkit/qwik module exports", () => {
     expect(typeof mod.useFrontendTool).toBe("function");
   });
 
+  it("should export useCapabilities from hooks module", async () => {
+    const mod = await import("../hooks/use-capabilities");
+    expect(mod.useCapabilities).toBeDefined();
+    expect(typeof mod.useCapabilities).toBe("function");
+  });
+
+  it("should export useSuggestions from hooks module", async () => {
+    const mod = await import("../hooks/use-suggestions");
+    expect(mod.useSuggestions).toBeDefined();
+    expect(typeof mod.useSuggestions).toBe("function");
+  });
+
+  it("should export useConfigureSuggestions from hooks module", async () => {
+    const mod = await import("../hooks/use-configure-suggestions");
+    expect(mod.useConfigureSuggestions).toBeDefined();
+    expect(typeof mod.useConfigureSuggestions).toBe("function");
+  });
+
+  it("should export useThreads from hooks module", async () => {
+    const mod = await import("../hooks/use-threads");
+    expect(mod.useThreads).toBeDefined();
+    expect(typeof mod.useThreads).toBe("function");
+  });
+
   // ---- Barrel re-exports (hooks index) ----
   it("should re-export all hooks from hooks/index", async () => {
     const mod = await import("../hooks/index");
@@ -77,6 +101,10 @@ describe("@copilotkit/qwik module exports", () => {
     expect(mod.useAgent).toBeDefined();
     expect(mod.useAgentContext).toBeDefined();
     expect(mod.useFrontendTool).toBeDefined();
+    expect(mod.useCapabilities).toBeDefined();
+    expect(mod.useSuggestions).toBeDefined();
+    expect(mod.useConfigureSuggestions).toBeDefined();
+    expect(mod.useThreads).toBeDefined();
   });
 
   // ---- Barrel re-exports (context index) ----
