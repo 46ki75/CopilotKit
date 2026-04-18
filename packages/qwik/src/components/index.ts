@@ -10,3 +10,21 @@ export {
 // v2 chat components
 export * from "./chat";
 export { WildcardToolCallRender } from "./wildcard-tool-call-render";
+
+// Activity renderers
+export {
+  MCPAppsActivityRenderer,
+  MCPAppsActivityType,
+  MCPAppsActivityContentSchema,
+  type MCPAppsActivityContent,
+} from "./MCPAppsActivityRenderer";
+
+export {
+  OpenGenerativeUIActivityRenderer,
+  OpenGenerativeUIToolRenderer,
+  OpenGenerativeUIActivityType,
+  OpenGenerativeUIContentSchema,
+  GenerateSandboxedUiArgsSchema,
+  type OpenGenerativeUIContent,
+  type GenerateSandboxedUiArgs,
+} from "./OpenGenerativeUIRenderer";
