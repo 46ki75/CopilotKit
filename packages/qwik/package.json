@@ -1,6 +1,6 @@
 {
   "name": "@cloud.ikuma/copilotkit-qwik",
-  "version": "1.56.2",
+  "version": "0.2.0",
   "description": "Individual Qwik package for CopilotKit, providing tools and components to build AI assistants and automation with Qwik.",
   "keywords": [
     "ai",
