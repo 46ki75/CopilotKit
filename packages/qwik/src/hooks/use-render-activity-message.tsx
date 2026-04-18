@@ -3,7 +3,7 @@ import type { JSXOutput } from "@builder.io/qwik";
 import { ActivityMessage } from "@ag-ui/core";
 import { DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import { CopilotKitContextId } from "../context/copilot-context";
-import { useCopilotChatConfiguration } from "../components/copilot-chat-configuration-provider";
+import { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";
 import type { CopilotKitCoreQwik } from "../lib/qwik-core";
 import type { QwikActivityMessageRenderer } from "../types/qwik-activity-message-renderer";
 

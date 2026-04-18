@@ -4,7 +4,7 @@ import { ToolCall, ToolMessage } from "@ag-ui/core";
 import { ToolCallStatus } from "@copilotkit/core";
 import { DEFAULT_AGENT_ID, partialJSONParse } from "@copilotkit/shared";
 import { CopilotKitContextId } from "../context/copilot-context";
-import { useCopilotChatConfiguration } from "../components/copilot-chat-configuration-provider";
+import { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";
 import type { CopilotKitCoreQwik } from "../lib/qwik-core";
 import type { QwikToolCallRenderer } from "../types/qwik-tool-call-renderer";
 

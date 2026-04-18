@@ -6,6 +6,7 @@ export {
 export {
   CopilotChatConfigurationContextId,
   CopilotChatDefaultLabels,
+  useCopilotChatConfiguration,
   type CopilotChatLabels,
   type CopilotChatConfigurationValue,
 } from "./copilot-chat-configuration-context";

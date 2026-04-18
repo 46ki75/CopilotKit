@@ -20,6 +20,11 @@ import type {
   InterruptHandlerProps,
   InterruptRenderProps,
 } from "../types/interrupt";
+import type { SandboxFunction } from "../types/sandbox-function";
+import type {
+  CopilotChatLabels,
+  CopilotChatConfigurationValue,
+} from "../context/copilot-chat-configuration-context";
 
 /**
  * Type-level tests that verify exported interfaces compile correctly.
@@ -167,5 +172,27 @@ describe("Type interfaces", () => {
     expect(props.event.value).toBe("test");
     expect(props.result.label).toBe("Test");
     expect(typeof props.resolve).toBe("function");
+  });
+
+  // ---- v2 types ----
+  it("SandboxFunction should enforce required fields", () => {
+    const fn: SandboxFunction = {
+      name: "calculate",
+      description: "Calculates a result",
+      parameters: {} as any,
+      handler: async () => 42,
+    };
+    expect(fn.name).toBe("calculate");
+    expect(fn.description).toBe("Calculates a result");
+    expect(typeof fn.handler).toBe("function");
+  });
+
+  it("CopilotChatLabels should have expected keys", () => {
+    const labels: Partial<CopilotChatLabels> = {
+      chatInputPlaceholder: "Ask me anything...",
+      modalHeaderTitle: "My Chat",
+    };
+    expect(labels.chatInputPlaceholder).toBe("Ask me anything...");
+    expect(labels.modalHeaderTitle).toBe("My Chat");
   });
 });

@@ -13,6 +13,9 @@ import {
   type CopilotChatConfigurationValue,
 } from "../context/copilot-chat-configuration-context";
 
+// Re-export for convenience
+export { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";
+
 export interface CopilotChatConfigurationProviderProps {
   labels?: Partial<CopilotChatLabels>;
   agentId?: string;
@@ -49,7 +52,3 @@ export const CopilotChatConfigurationProvider =
 
     return <Slot />;
   });
-
-export function useCopilotChatConfiguration(): CopilotChatConfigurationValue | null {
-  return useContext(CopilotChatConfigurationContextId, null);
-}

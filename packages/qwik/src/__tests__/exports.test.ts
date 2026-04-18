@@ -107,6 +107,63 @@ describe("@copilotkit/qwik module exports", () => {
     expect(typeof mod.useAttachments).toBe("function");
   });
 
+  // ---- v2 rendering hooks ----
+  it("should export useRenderTool from hooks module", async () => {
+    const mod = await import("../hooks/use-render-tool");
+    expect(mod.useRenderTool).toBeDefined();
+    expect(typeof mod.useRenderTool).toBe("function");
+  });
+
+  it("should export useRenderToolCall from hooks module", async () => {
+    const mod = await import("../hooks/use-render-tool-call");
+    expect(mod.useRenderToolCall).toBeDefined();
+    expect(typeof mod.useRenderToolCall).toBe("function");
+  });
+
+  it("should export useDefaultRenderTool from hooks module", async () => {
+    const mod = await import("../hooks/use-default-render-tool");
+    expect(mod.useDefaultRenderTool).toBeDefined();
+    expect(typeof mod.useDefaultRenderTool).toBe("function");
+  });
+
+  it("should export useComponent from hooks module", async () => {
+    const mod = await import("../hooks/use-component");
+    expect(mod.useComponent).toBeDefined();
+    expect(typeof mod.useComponent).toBe("function");
+  });
+
+  it("should export useRenderCustomMessages from hooks module", async () => {
+    const mod = await import("../hooks/use-render-custom-messages");
+    expect(mod.useRenderCustomMessages).toBeDefined();
+    expect(typeof mod.useRenderCustomMessages).toBe("function");
+  });
+
+  it("should export useRenderActivityMessage from hooks module", async () => {
+    const mod = await import("../hooks/use-render-activity-message");
+    expect(mod.useRenderActivityMessage).toBeDefined();
+    expect(typeof mod.useRenderActivityMessage).toBe("function");
+  });
+
+  it("should export useKeyboardHeight from hooks module", async () => {
+    const mod = await import("../hooks/use-keyboard-height");
+    expect(mod.useKeyboardHeight).toBeDefined();
+    expect(typeof mod.useKeyboardHeight).toBe("function");
+  });
+
+  // ---- v2 types ----
+  it("should export defineToolCallRenderer from types module", async () => {
+    const mod = await import("../types/define-tool-call-renderer");
+    expect(mod.defineToolCallRenderer).toBeDefined();
+    expect(typeof mod.defineToolCallRenderer).toBe("function");
+  });
+
+  // ---- v2 lib ----
+  it("should export CopilotKitCoreQwik from lib module", async () => {
+    const mod = await import("../lib/qwik-core");
+    expect(mod.CopilotKitCoreQwik).toBeDefined();
+    expect(typeof mod.CopilotKitCoreQwik).toBe("function");
+  });
+
   // ---- Barrel re-exports (hooks index) ----
   it("should re-export all hooks from hooks/index", async () => {
     const mod = await import("../hooks/index");
@@ -126,11 +183,45 @@ describe("@copilotkit/qwik module exports", () => {
     expect(mod.useInterrupt).toBeDefined();
     expect(mod.useHumanInTheLoop).toBeDefined();
     expect(mod.useAttachments).toBeDefined();
+    // v2 rendering hooks
+    expect(mod.useRenderTool).toBeDefined();
+    expect(mod.useRenderToolCall).toBeDefined();
+    expect(mod.useDefaultRenderTool).toBeDefined();
+    expect(mod.useComponent).toBeDefined();
+    expect(mod.useRenderCustomMessages).toBeDefined();
+    expect(mod.useRenderActivityMessage).toBeDefined();
+    expect(mod.useKeyboardHeight).toBeDefined();
   });
 
   // ---- Barrel re-exports (context index) ----
   it("should re-export CopilotKitContextId from context/index", async () => {
     const mod = await import("../context/index");
     expect(mod.CopilotKitContextId).toBeDefined();
+  });
+
+  it("should re-export CopilotChatConfigurationContextId from context/index", async () => {
+    const mod = await import("../context/index");
+    expect(mod.CopilotChatConfigurationContextId).toBeDefined();
+  });
+
+  it("should re-export CopilotChatDefaultLabels from context/index", async () => {
+    const mod = await import("../context/index");
+    expect(mod.CopilotChatDefaultLabels).toBeDefined();
+    expect(mod.CopilotChatDefaultLabels.chatInputPlaceholder).toBe(
+      "Type a message...",
+    );
+  });
+
+  // ---- Barrel re-exports (types index) ----
+  it("should re-export defineToolCallRenderer from types/index", async () => {
+    const mod = await import("../types/index");
+    expect(mod.defineToolCallRenderer).toBeDefined();
+    expect(typeof mod.defineToolCallRenderer).toBe("function");
+  });
+
+  // ---- Barrel re-exports (lib index) ----
+  it("should re-export CopilotKitCoreQwik from lib/index", async () => {
+    const mod = await import("../lib/index");
+    expect(mod.CopilotKitCoreQwik).toBeDefined();
   });
 });

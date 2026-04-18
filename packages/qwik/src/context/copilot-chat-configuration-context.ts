@@ -1,4 +1,4 @@
-import { createContextId, type Signal } from "@builder.io/qwik";
+import { createContextId, useContext, type Signal } from "@builder.io/qwik";
 
 export const CopilotChatDefaultLabels = {
   chatInputPlaceholder: "Type a message...",
@@ -37,3 +37,11 @@ export const CopilotChatConfigurationContextId =
   createContextId<CopilotChatConfigurationValue | null>(
     "copilotkit.chat-configuration",
   );
+
+/**
+ * Hook to access the CopilotChat configuration context.
+ * Returns null if used outside a CopilotChatConfigurationProvider.
+ */
+export function useCopilotChatConfiguration(): CopilotChatConfigurationValue | null {
+  return useContext(CopilotChatConfigurationContextId, null);
+}
