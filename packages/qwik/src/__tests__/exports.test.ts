@@ -89,6 +89,24 @@ describe("@copilotkit/qwik module exports", () => {
     expect(typeof mod.useThreads).toBe("function");
   });
 
+  it("should export useInterrupt from hooks module", async () => {
+    const mod = await import("../hooks/use-interrupt");
+    expect(mod.useInterrupt).toBeDefined();
+    expect(typeof mod.useInterrupt).toBe("function");
+  });
+
+  it("should export useHumanInTheLoop from hooks module", async () => {
+    const mod = await import("../hooks/use-human-in-the-loop");
+    expect(mod.useHumanInTheLoop).toBeDefined();
+    expect(typeof mod.useHumanInTheLoop).toBe("function");
+  });
+
+  it("should export useAttachments from hooks module", async () => {
+    const mod = await import("../hooks/use-attachments");
+    expect(mod.useAttachments).toBeDefined();
+    expect(typeof mod.useAttachments).toBe("function");
+  });
+
   // ---- Barrel re-exports (hooks index) ----
   it("should re-export all hooks from hooks/index", async () => {
     const mod = await import("../hooks/index");
@@ -105,6 +123,9 @@ describe("@copilotkit/qwik module exports", () => {
     expect(mod.useSuggestions).toBeDefined();
     expect(mod.useConfigureSuggestions).toBeDefined();
     expect(mod.useThreads).toBeDefined();
+    expect(mod.useInterrupt).toBeDefined();
+    expect(mod.useHumanInTheLoop).toBeDefined();
+    expect(mod.useAttachments).toBeDefined();
   });
 
   // ---- Barrel re-exports (context index) ----

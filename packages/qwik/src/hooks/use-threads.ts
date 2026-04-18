@@ -197,8 +197,13 @@ export function useThreads({
         ɵselectIsFetchingNextPage,
         isFetchingMoreThreadsSig,
       ),
-      store.select(ɵselectThreads).subscribe((coreThreads) => {
-        threadsSig.value = coreThreads.map(
+    ];
+
+    const threadsSubscription = store
+      .select(ɵselectThreads)
+      .subscribe((coreThreads: unknown) => {
+        const threads = coreThreads as Thread[];
+        threadsSig.value = threads.map(
           ({
             id,
             agentId: threadAgentId,
@@ -215,8 +220,8 @@ export function useThreads({
             updatedAt,
           }),
         );
-      }),
-    ];
+      });
+    unsubs.push(() => threadsSubscription.unsubscribe());
 
     store.setContext({
       runtimeUrl: core.runtimeUrl,

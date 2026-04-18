@@ -15,6 +15,11 @@ import type {
   UseCopilotChatReturn,
 } from "../hooks/use-copilot-chat";
 import type { CopilotChatProps } from "../components/copilot-chat";
+import type {
+  InterruptEvent,
+  InterruptHandlerProps,
+  InterruptRenderProps,
+} from "../types/interrupt";
 
 /**
  * Type-level tests that verify exported interfaces compile correctly.
@@ -132,5 +137,35 @@ describe("Type interfaces", () => {
   it("CopilotChatProps should accept minimal props", () => {
     const props: CopilotChatProps = {};
     expect(props).toBeDefined();
+  });
+
+  // ---- Interrupt types ----
+  it("InterruptEvent should enforce required fields", () => {
+    const event: InterruptEvent<string> = {
+      name: "on_interrupt",
+      value: "approval needed",
+    };
+    expect(event.name).toBe("on_interrupt");
+    expect(event.value).toBe("approval needed");
+  });
+
+  it("InterruptHandlerProps should include event and resolve", () => {
+    const props: InterruptHandlerProps<{ question: string }> = {
+      event: { name: "on_interrupt", value: { question: "Approve?" } },
+      resolve: () => {},
+    };
+    expect(props.event.name).toBe("on_interrupt");
+    expect(typeof props.resolve).toBe("function");
+  });
+
+  it("InterruptRenderProps should include event, result, and resolve", () => {
+    const props: InterruptRenderProps<string, { label: string }> = {
+      event: { name: "on_interrupt", value: "test" },
+      result: { label: "Test" },
+      resolve: () => {},
+    };
+    expect(props.event.value).toBe("test");
+    expect(props.result.label).toBe("Test");
+    expect(typeof props.resolve).toBe("function");
   });
 });

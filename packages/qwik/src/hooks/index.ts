@@ -40,3 +40,21 @@ export {
   type UseThreadsInput,
   type UseThreadsReturn,
 } from "./use-threads";
+export {
+  useInterrupt,
+  type UseInterruptConfig,
+  type UseInterruptReturn,
+  type InterruptEvent,
+  type InterruptRenderProps,
+  type InterruptHandlerProps,
+} from "./use-interrupt";
+export {
+  useHumanInTheLoop,
+  type HumanInTheLoopConfig,
+  type UseHumanInTheLoopReturn,
+} from "./use-human-in-the-loop";
+export {
+  useAttachments,
+  type UseAttachmentsProps,
+  type UseAttachmentsReturn,
+} from "./use-attachments";
