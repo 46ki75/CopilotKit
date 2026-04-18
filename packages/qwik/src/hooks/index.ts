@@ -58,3 +58,25 @@ export {
   type UseAttachmentsProps,
   type UseAttachmentsReturn,
 } from "./use-attachments";
+export {
+  useRenderTool,
+  type RenderToolProps,
+  type RenderToolInProgressProps,
+  type RenderToolExecutingProps,
+  type RenderToolCompleteProps,
+} from "./use-render-tool";
+export {
+  useRenderToolCall,
+  type UseRenderToolCallProps,
+} from "./use-render-tool-call";
+export { useDefaultRenderTool } from "./use-default-render-tool";
+export { useComponent } from "./use-component";
+export { useRenderCustomMessages } from "./use-render-custom-messages";
+export {
+  useRenderActivityMessage,
+  type UseRenderActivityMessageReturn,
+} from "./use-render-activity-message";
+export {
+  useKeyboardHeight,
+  type KeyboardState,
+} from "./use-keyboard-height";
