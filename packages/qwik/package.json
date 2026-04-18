@@ -40,7 +40,8 @@
     "format": "oxfmt --write .",
     "lint": "oxlint --fix . -A no-img-element",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@ag-ui/client": "0.0.52",
