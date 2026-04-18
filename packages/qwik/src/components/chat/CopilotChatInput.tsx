@@ -41,7 +41,7 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
       <form
         preventdefault:submit
         onSubmit$={$(async () => {
-          const value = inputValue.trim();
+          const value = localInput.value.trim();
           if (!value) return;
           await props.onSubmitMessage$?.(value);
           localInput.value = "";
@@ -61,7 +61,7 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
             onKeyDown$={$((e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                const value = inputValue.trim();
+                const value = localInput.value.trim();
                 if (value) {
                   props.onSubmitMessage$?.(value);
                   localInput.value = "";
