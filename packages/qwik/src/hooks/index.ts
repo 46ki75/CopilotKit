@@ -24,3 +24,19 @@ export {
   type JsonSerializable,
 } from "./use-agent-context";
 export { useFrontendTool, type FrontendToolConfig } from "./use-frontend-tool";
+export { useCapabilities } from "./use-capabilities";
+export {
+  useSuggestions,
+  type UseSuggestionsOptions,
+  type UseSuggestionsReturn,
+} from "./use-suggestions";
+export {
+  useConfigureSuggestions,
+  type SuggestionsConfigInput,
+} from "./use-configure-suggestions";
+export {
+  useThreads,
+  type Thread,
+  type UseThreadsInput,
+  type UseThreadsReturn,
+} from "./use-threads";
