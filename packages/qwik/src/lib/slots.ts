@@ -32,7 +32,7 @@ function isPlainObject(obj: unknown): obj is Record<string, unknown> {
 }
 
 /**
- * Returns the same signal value reference as long as the value is shallowly
+ * Returns the same value reference as long as the value is shallowly
  * equal to the previous render's value. Qwik equivalent of React's
  * `useShallowStableRef` from the React package.
  *
@@ -42,7 +42,7 @@ function isPlainObject(obj: unknown): obj is Record<string, unknown> {
  *   reference only.
  *
  * @param value The current value to stabilize.
- * @returns A signal whose `.value` contains the stabilized reference.
+ * @returns The stabilized value (same type as input, not a Signal).
  */
 export function useShallowStable<T>(value: T): T {
   const stableRef = useSignal<T>(value);

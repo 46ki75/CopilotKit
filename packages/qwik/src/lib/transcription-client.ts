@@ -32,7 +32,11 @@ async function blobToBase64(blob: Blob): Promise<string> {
       const result = reader.result as string;
       // Remove the data URL prefix to get pure base64
       const base64 = result.split(",")[1];
-      resolve(base64 ?? "");
+      if (base64 === undefined) {
+        reject(new Error("Failed to convert blob to base64"));
+        return;
+      }
+      resolve(base64);
     };
     reader.onerror = () => reject(new Error("Failed to read audio data"));
     reader.readAsDataURL(blob);

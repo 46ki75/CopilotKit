@@ -266,14 +266,14 @@ export const A2UIBuiltInToolCallRenderer = component$(() => {
     });
 
     // Register via props-based mechanism so useRenderTool hooks take priority
-    const existing = (core as any)._renderToolCalls ?? [];
+    const existing = [...core.renderToolCalls];
     core.setRenderToolCalls([
       ...existing.filter((rc: any) => rc.name !== RENDER_A2UI_TOOL_NAME),
       renderer,
     ]);
 
     cleanup(() => {
-      const current = (core as any)._renderToolCalls ?? [];
+      const current = [...core.renderToolCalls];
       core.setRenderToolCalls(
         current.filter((rc: any) => rc.name !== RENDER_A2UI_TOOL_NAME),
       );
