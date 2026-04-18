@@ -6,3 +6,7 @@ export {
   useCopilotChatConfiguration,
   type CopilotChatConfigurationProviderProps,
 } from "./copilot-chat-configuration-provider";
+
+// v2 chat components
+export * from "./chat";
+export { WildcardToolCallRender } from "./wildcard-tool-call-render";
