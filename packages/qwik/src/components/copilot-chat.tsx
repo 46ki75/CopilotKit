@@ -114,45 +114,132 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
   });
 
   return (
-    <div class="copilotkit-chat-container">
-      <div class="copilotkit-chat-messages">
+    <div
+      data-copilotkit
+      data-testid="copilot-chat"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        overflow: "hidden",
+        fontFamily: "inherit",
+      }}
+    >
+      <div
+        style={{
+          flex: "1",
+          overflowY: "auto",
+          padding: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+        }}
+      >
         {messages.value.map((msg, i) => (
           <div
             key={i}
-            class={`copilotkit-chat-message copilotkit-chat-message-${msg.role}`}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "4px",
+              alignItems: msg.role === "user" ? "flex-end" : "flex-start",
+            }}
           >
-            <span class="copilotkit-chat-role">
+            <span
+              style={{
+                fontSize: "11px",
+                color: "#999",
+                textTransform: "capitalize",
+              }}
+            >
               {msg.role === "user" ? "You" : "Assistant"}
             </span>
-            <p class="copilotkit-chat-content">{msg.content}</p>
+            <p
+              style={{
+                margin: "0",
+                padding: "8px 12px",
+                borderRadius: "12px",
+                maxWidth: "80%",
+                background: msg.role === "user" ? "#333" : "#f0f0f0",
+                color: msg.role === "user" ? "white" : "#333",
+                fontSize: "14px",
+                lineHeight: "1.5",
+              }}
+            >
+              {msg.content}
+            </p>
           </div>
         ))}
         {isLoading.value && (
-          <div class="copilotkit-chat-message copilotkit-chat-message-assistant">
-            <span class="copilotkit-chat-role">Assistant</span>
-            <p class="copilotkit-chat-content copilotkit-chat-loading">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "4px",
+              alignItems: "flex-start",
+            }}
+          >
+            <span style={{ fontSize: "11px", color: "#999" }}>Assistant</span>
+            <p
+              style={{
+                margin: "0",
+                padding: "8px 12px",
+                borderRadius: "12px",
+                background: "#f0f0f0",
+                color: "#999",
+                fontSize: "14px",
+                fontStyle: "italic",
+              }}
+            >
               Thinking...
             </p>
           </div>
         )}
       </div>
       <form
-        class="copilotkit-chat-input-container"
         preventdefault:submit
         onSubmit$={handleSubmit}
+        style={{
+          display: "flex",
+          gap: "8px",
+          padding: "8px 12px",
+          borderTop: "1px solid #e0e0e0",
+          background: "white",
+        }}
       >
         <input
           type="text"
-          class="copilotkit-chat-input"
           placeholder={props.placeholder ?? "Type a message..."}
           bind:value={input}
+          style={{
+            flex: "1",
+            border: "1px solid #e0e0e0",
+            borderRadius: "12px",
+            padding: "8px 12px",
+            fontSize: "14px",
+            lineHeight: "1.5",
+            outline: "none",
+            fontFamily: "inherit",
+          }}
         />
         <button
           type="submit"
-          class="copilotkit-chat-submit"
           disabled={isLoading.value}
+          style={{
+            background: isLoading.value ? "#ccc" : "#333",
+            color: "white",
+            border: "none",
+            borderRadius: "50%",
+            width: "36px",
+            height: "36px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: isLoading.value ? "not-allowed" : "pointer",
+            flexShrink: "0",
+          }}
         >
-          {props.submitLabel ?? "Send"}
+          {props.submitLabel ?? "↑"}
         </button>
       </form>
     </div>
