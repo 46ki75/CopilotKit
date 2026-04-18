@@ -10,3 +10,7 @@ export {
   type CopilotChatLabels,
   type CopilotChatConfigurationValue,
 } from "./copilot-chat-configuration-context";
+export {
+  SandboxFunctionsContextId,
+  useSandboxFunctions,
+} from "./sandbox-functions-context";

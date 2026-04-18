@@ -6,6 +6,17 @@ export {
   useCopilotChatConfiguration,
   type CopilotChatConfigurationProviderProps,
 } from "./copilot-chat-configuration-provider";
+export {
+  LicenseWarningBanner,
+  InlineFeatureWarning,
+} from "./license-warning-banner";
+export { CopilotKitInspector, type CopilotKitInspectorProps } from "./CopilotKitInspector";
+export {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+} from "./ui/tooltip";
 
 // v2 chat components
 export * from "./chat";

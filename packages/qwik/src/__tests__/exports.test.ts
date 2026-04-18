@@ -212,6 +212,17 @@ describe("@copilotkit/qwik module exports", () => {
     );
   });
 
+  it("should re-export SandboxFunctionsContextId from context/index", async () => {
+    const mod = await import("../context/index");
+    expect(mod.SandboxFunctionsContextId).toBeDefined();
+  });
+
+  it("should re-export useSandboxFunctions from context/index", async () => {
+    const mod = await import("../context/index");
+    expect(mod.useSandboxFunctions).toBeDefined();
+    expect(typeof mod.useSandboxFunctions).toBe("function");
+  });
+
   // ---- Barrel re-exports (types index) ----
   it("should re-export defineToolCallRenderer from types/index", async () => {
     const mod = await import("../types/index");
@@ -223,5 +234,57 @@ describe("@copilotkit/qwik module exports", () => {
   it("should re-export CopilotKitCoreQwik from lib/index", async () => {
     const mod = await import("../lib/index");
     expect(mod.CopilotKitCoreQwik).toBeDefined();
+  });
+
+  it("should re-export processPartialHtml from lib/index", async () => {
+    const mod = await import("../lib/index");
+    expect(mod.processPartialHtml).toBeDefined();
+    expect(typeof mod.processPartialHtml).toBe("function");
+  });
+
+  it("should re-export extractCompleteStyles from lib/index", async () => {
+    const mod = await import("../lib/index");
+    expect(mod.extractCompleteStyles).toBeDefined();
+    expect(typeof mod.extractCompleteStyles).toBe("function");
+  });
+
+  // ---- processPartialHtml ----
+  it("processPartialHtml should strip incomplete tags", async () => {
+    const { processPartialHtml } = await import("../lib/processPartialHtml");
+    const result = processPartialHtml('<div class="foo">hello <span class="ba');
+    expect(result).toBe('<div class="foo">hello ');
+  });
+
+  it("processPartialHtml should extract body content", async () => {
+    const { processPartialHtml } = await import("../lib/processPartialHtml");
+    const result = processPartialHtml(
+      "<html><head></head><body><p>content</p></body></html>",
+    );
+    expect(result).toContain("<p>content</p>");
+  });
+
+  it("extractCompleteStyles should extract style blocks", async () => {
+    const { extractCompleteStyles } = await import("../lib/processPartialHtml");
+    const result = extractCompleteStyles(
+      '<style>body { color: red; }</style><div>content</div>',
+    );
+    expect(result).toContain("body { color: red; }");
+  });
+
+  // ---- MCP/OpenGenerativeUI exports ----
+  // Note: MCPAppsActivityRenderer and OpenGenerativeUIRenderer use component$,
+  // so they cannot be imported in plain Vitest without the Qwik build pipeline.
+  // Their schemas and types are verified via tsc --noEmit and the build.
+
+  it("should export processPartialHtml from lib/processPartialHtml", async () => {
+    const mod = await import("../lib/processPartialHtml");
+    expect(mod.processPartialHtml).toBeDefined();
+    expect(typeof mod.processPartialHtml).toBe("function");
+  });
+
+  it("should export extractCompleteStyles from lib/processPartialHtml", async () => {
+    const mod = await import("../lib/processPartialHtml");
+    expect(mod.extractCompleteStyles).toBeDefined();
+    expect(typeof mod.extractCompleteStyles).toBe("function");
   });
 });
