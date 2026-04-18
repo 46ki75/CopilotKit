@@ -4,7 +4,11 @@ import {
   useSignal,
   useVisibleTask$,
   $,
+  noSerialize,
 } from "@builder.io/qwik";
+import type { NoSerialize } from "@builder.io/qwik";
+import type { AbstractAgent } from "@ag-ui/client";
+import { randomUUID, DEFAULT_AGENT_ID } from "@copilotkit/shared";
 import { CopilotKitContextId } from "../context/copilot-context";
 
 /**
@@ -40,6 +44,18 @@ interface ChatMessage {
   content: string;
 }
 
+/** Extract a plain-text string from an AG-UI message content field. */
+function contentToText(content: unknown): string {
+  if (typeof content === "string") return content;
+  if (Array.isArray(content)) {
+    return content
+      .filter((p): p is { type: string; text: string } => p?.type === "text")
+      .map((p) => p.text)
+      .join("");
+  }
+  return "";
+}
+
 /**
  * A basic chat UI component for interacting with the CopilotKit AI. This is
  * the Qwik equivalent of the React `CopilotChat` component.
@@ -64,10 +80,17 @@ interface ChatMessage {
  */
 export const CopilotChat = component$<CopilotChatProps>((props) => {
   const ctx = useContext(CopilotKitContextId);
+  const agentSig = useSignal<NoSerialize<AbstractAgent> | undefined>(undefined);
+  // Set of agent message IDs already shown in the UI — initialized lazily on
+  // the client inside useVisibleTask$ so Qwik's SSR serializer never touches it.
+  const shownMessageIds = useSignal<NoSerialize<Set<string>> | undefined>(
+    undefined,
+  );
   const messages = useSignal<ChatMessage[]>(props.initialMessages ?? []);
   const input = useSignal("");
   const isLoading = useSignal(false);
 
+  // Add system instructions to context whenever the prop changes.
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => props.instructions);
@@ -83,33 +106,127 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
     }
   });
 
+  // Resolve the agent, subscribe to its messages, and connect (replay history).
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(({ track, cleanup }) => {
+    track(() => ctx.coreRef.value);
+
+    const core = ctx.coreRef.value;
+    if (!core) return;
+
+    // Prefer the "default" agent; fall back to the first registered agent.
+    const agent =
+      core.getAgent(DEFAULT_AGENT_ID) ??
+      (Object.values(core.agents)[0] as AbstractAgent | undefined);
+    if (!agent) return;
+
+    agentSig.value = noSerialize(agent);
+
+    // Lazily create the Set on the client (so Qwik's SSR serializer never sees it).
+    if (!shownMessageIds.value) {
+      shownMessageIds.value = noSerialize(new Set<string>());
+    }
+    const shownIds = shownMessageIds.value!;
+
+    // Sync any messages the agent already has (e.g. from a previous session).
+    for (const msg of agent.messages) {
+      if (msg.role === "user" || msg.role === "assistant") {
+        if (!shownIds.has(msg.id)) {
+          shownIds.add(msg.id);
+          messages.value = [
+            ...messages.value,
+            {
+              role: msg.role as "user" | "assistant",
+              content: contentToText(msg.content),
+            },
+          ];
+        }
+      }
+    }
+
+    const subscription = core.subscribeToAgentWithOptions(agent, {
+      onMessagesChanged: ({ messages: agentMessages }) => {
+        // Append only new assistant messages that we haven't shown yet.
+        const newEntries: ChatMessage[] = [];
+        for (const msg of agentMessages) {
+          if (
+            (msg.role === "assistant" || msg.role === "user") &&
+            !shownIds.has(msg.id)
+          ) {
+            shownIds.add(msg.id);
+            newEntries.push({
+              role: msg.role as "user" | "assistant",
+              content: contentToText(msg.content),
+            });
+          }
+        }
+        if (newEntries.length > 0) {
+          messages.value = [...messages.value, ...newEntries];
+        }
+      },
+      onRunInitialized: () => {
+        isLoading.value = true;
+      },
+      onRunFinalized: () => {
+        isLoading.value = false;
+      },
+      onRunFailed: () => {
+        isLoading.value = false;
+      },
+      onRunErrorEvent: () => {
+        isLoading.value = false;
+      },
+    });
+
+    let detached = false;
+    const connectAgent = async () => {
+      try {
+        await core.connectAgent({ agent });
+      } catch (error) {
+        if (!detached) {
+          console.error("CopilotChat: connectAgent failed", error);
+        }
+      }
+    };
+    connectAgent();
+
+    cleanup(() => {
+      detached = true;
+      subscription.unsubscribe();
+      agentSig.value = undefined;
+      void agent.detachActiveRun().catch(() => {});
+    });
+  });
+
   const handleSubmit = $(async () => {
     const userMessage = input.value.trim();
     if (!userMessage || isLoading.value) return;
 
+    const core = ctx.coreRef.value;
+    const agent = agentSig.value;
+    if (!core || !agent) return;
+
+    const messageId = randomUUID();
+
+    // Add message to agent so the backend receives it.
+    agent.addMessage({
+      id: messageId,
+      role: "user",
+      content: userMessage,
+    });
+
+    // Eagerly show the user message in the UI (subscription may lag slightly).
+    shownMessageIds.value?.add(messageId);
     messages.value = [
       ...messages.value,
       { role: "user" as const, content: userMessage },
     ];
     input.value = "";
-    isLoading.value = true;
 
     try {
-      const core = ctx.coreRef.value;
-      if (!core) return;
-
-      const agents = core.agents;
-      const agentIds = Object.keys(agents);
-      const firstAgentId = agentIds[0];
-
-      if (firstAgentId !== undefined) {
-        const agent = agents[firstAgentId];
-        if (agent) {
-          await core.runAgent({ agent });
-        }
-      }
-    } finally {
-      isLoading.value = false;
+      await core.runAgent({ agent });
+    } catch (error) {
+      console.error("CopilotChat: runAgent failed", error);
     }
   });
 
