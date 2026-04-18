@@ -211,9 +211,9 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
           type="text"
           placeholder={props.placeholder ?? "Type a message..."}
           value={input.value}
-          onInput$={(e) => {
+          onInput$={$((e) => {
             input.value = (e.target as HTMLInputElement).value;
-          }}
+          })}
           style={{
             flex: "1",
             border: "1px solid #e0e0e0",

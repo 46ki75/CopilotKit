@@ -1,4 +1,4 @@
-import { component$, useSignal } from "@builder.io/qwik";
+import { component$, useSignal, $ } from "@builder.io/qwik";
 import type { QRL } from "@builder.io/qwik";
 import type { Attachment } from "@copilotkit/shared";
 import { CopilotChatDefaultLabels } from "../../context/copilot-chat-configuration-context";
@@ -40,12 +40,12 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
     >
       <form
         preventdefault:submit
-        onSubmit$={async () => {
+        onSubmit$={$(async () => {
           const value = inputValue.trim();
           if (!value) return;
           await props.onSubmitMessage$?.(value);
           localInput.value = "";
-        }}
+        })}
         style={{ display: "flex", alignItems: "flex-end", gap: "8px" }}
       >
         <div style={{ flex: "1", display: "flex", flexDirection: "column" }}>
@@ -53,12 +53,12 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
             data-testid="copilot-chat-textarea"
             placeholder={props.placeholder ?? labels.chatInputPlaceholder}
             value={inputValue}
-            onInput$={(e) => {
+            onInput$={$((e) => {
               const target = e.target as HTMLTextAreaElement;
               localInput.value = target.value;
               props.onInputChange$?.(target.value);
-            }}
-            onKeyDown$={(e) => {
+            })}
+            onKeyDown$={$((e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 const value = inputValue.trim();
@@ -67,7 +67,7 @@ export const CopilotChatInput = component$<CopilotChatInputProps>((props) => {
                   localInput.value = "";
                 }
               }
-            }}
+            })}
             rows={1}
             style={{
               resize: "none",

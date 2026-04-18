@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, $ } from "@builder.io/qwik";
 import type { QRL } from "@builder.io/qwik";
 import type { Attachment } from "@copilotkit/shared";
 
@@ -84,9 +84,9 @@ export const CopilotChatAttachmentQueue =
               </div>
               <button
                 type="button"
-                onClick$={async () => {
+                onClick$={$(async () => {
                   await props.onRemoveAttachment$(attachment.id);
-                }}
+                })}
                 style={{
                   position: "absolute",
                   top: isMedia ? "4px" : "6px",

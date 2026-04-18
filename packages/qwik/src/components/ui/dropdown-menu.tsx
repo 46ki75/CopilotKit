@@ -1,4 +1,5 @@
 import { component$, Slot } from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
 
 /**
  * Simplified Qwik dropdown menu — no Radix UI dependency.
@@ -14,7 +15,7 @@ interface DropdownMenuItemProps {
   inset?: boolean;
   variant?: "default" | "destructive";
   disabled?: boolean;
-  onClick$?: () => void;
+  onClick$?: QRL<() => void>;
 }
 
 interface DropdownMenuLabelProps {
@@ -127,7 +128,7 @@ export const DropdownMenuCheckboxItem = component$<{
   class?: string;
   checked?: boolean;
   disabled?: boolean;
-  onClick$?: () => void;
+  onClick$?: QRL<() => void>;
 }>(({ class: cls, checked, disabled, onClick$ }) => {
   return (
     <div
@@ -177,7 +178,7 @@ export const DropdownMenuRadioItem = component$<{
   class?: string;
   checked?: boolean;
   disabled?: boolean;
-  onClick$?: () => void;
+  onClick$?: QRL<() => void>;
 }>(({ class: cls, checked, disabled, onClick$ }) => {
   return (
     <div

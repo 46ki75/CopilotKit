@@ -81,9 +81,6 @@ export const CopilotChatUserMessage = component$<CopilotChatUserMessageProps>(
             opacity: "0",
             transition: "opacity 0.2s",
           }}
-          onMouseEnter$={() => {
-            // Toolbar visibility handled via CSS :hover
-          }}
         >
           <button
             type="button"

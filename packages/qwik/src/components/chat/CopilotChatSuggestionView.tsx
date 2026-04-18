@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, $ } from "@builder.io/qwik";
 import type { QRL } from "@builder.io/qwik";
 import type { Suggestion } from "@copilotkit/core";
 import { CopilotChatSuggestionPill } from "./CopilotChatSuggestionPill";
@@ -33,9 +33,9 @@ export const CopilotChatSuggestionView =
             key={`${suggestion.title}-${index}`}
             title={suggestion.title}
             isLoading={suggestion.isLoading}
-            onClick$={async () => {
+            onClick$={$(async () => {
               await props.onSelectSuggestion$?.(suggestion, index);
-            }}
+            })}
           />
         ))}
       </div>

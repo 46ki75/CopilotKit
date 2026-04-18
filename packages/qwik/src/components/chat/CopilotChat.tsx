@@ -259,12 +259,12 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
             type="file"
             multiple
             ref={fileInputRef}
-            onChange$={async (e) => {
+            onChange$={$(async (e) => {
               const target = e.target as HTMLInputElement;
               if (target.files?.length) {
                 await processFiles(Array.from(target.files));
               }
-            }}
+            })}
             accept={props.attachments?.accept ?? "*/*"}
             style={{ display: "none" }}
           />

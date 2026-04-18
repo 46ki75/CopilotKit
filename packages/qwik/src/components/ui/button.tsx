@@ -1,4 +1,5 @@
 import { component$, Slot } from "@builder.io/qwik";
+import type { QRL } from "@builder.io/qwik";
 
 /**
  * Button variant values (mirrors the shadcn/CVA buttonVariants).
@@ -29,7 +30,7 @@ interface ButtonProps {
   disabled?: boolean;
   class?: string;
   type?: "button" | "submit" | "reset";
-  onClick$?: () => void;
+  onClick$?: QRL<() => void>;
   "data-slot"?: string;
   [key: string]: unknown;
 }

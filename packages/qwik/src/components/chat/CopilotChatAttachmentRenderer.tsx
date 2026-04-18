@@ -1,4 +1,4 @@
-import { component$, useSignal } from "@builder.io/qwik";
+import { component$, useSignal, $ } from "@builder.io/qwik";
 import type { InputContentSource } from "@copilotkit/shared";
 import { getSourceUrl, getDocumentIcon } from "@copilotkit/shared";
 
@@ -42,9 +42,9 @@ export const CopilotChatAttachmentRenderer =
             alt="Image attachment"
             class={props.class ?? ""}
             style={{ maxWidth: "100%", height: "auto", borderRadius: "8px" }}
-            onError$={() => {
+            onError$={$(() => {
               imageError.value = true;
-            }}
+            })}
           />
         );
 
