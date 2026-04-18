@@ -1,0 +1,45 @@
+{
+  "name": "@copilotkit/qwik",
+  "version": "1.56.2",
+  "description": "CopilotKit bindings for Qwik",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@copilotkit/core": "workspace:*",
+    "@copilotkit/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@builder.io/qwik": "^1.19.2",
+    "@copilotkit/typescript-config": "workspace:*",
+    "tsdown": "^0.20.3",
+    "typescript": "5.8.2"
+  },
+  "peerDependencies": {
+    "@builder.io/qwik": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CopilotKit/CopilotKit.git"
+  }
+}
