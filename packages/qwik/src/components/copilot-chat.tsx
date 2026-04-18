@@ -222,7 +222,7 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
       const currentAgent = agentSig.value;
       agentSig.value = undefined;
       if (currentAgent) {
-        void (currentAgent as AbstractAgent).detachActiveRun().catch(() => {});
+        void currentAgent.detachActiveRun().catch(() => {});
       }
     });
   });

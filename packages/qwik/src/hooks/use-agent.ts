@@ -95,7 +95,8 @@ export function useAgent(options: UseAgentOptions = {}): UseAgentReturn {
     let agentSubscription: { unsubscribe: () => void } | undefined;
 
     const setupAgent = (agent: AbstractAgent) => {
-      // Tear down any previous per-agent subscription first.
+      // Tear down any previous per-agent subscription first (e.g. when the
+      // agent reference changes after a runtime reconnection).
       agentSubscription?.unsubscribe();
 
       agentSig.value = noSerialize(agent);
