@@ -13,7 +13,6 @@ export default defineConfig([
       "@copilotkit/core",
       "@copilotkit/shared",
       "@ag-ui/client",
-      "katex",
     ],
   },
 ]);
