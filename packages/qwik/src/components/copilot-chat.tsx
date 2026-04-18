@@ -210,7 +210,10 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
         <input
           type="text"
           placeholder={props.placeholder ?? "Type a message..."}
-          bind:value={input}
+          value={input.value}
+          onInput$={(e) => {
+            input.value = (e.target as HTMLInputElement).value;
+          }}
           style={{
             flex: "1",
             border: "1px solid #e0e0e0",
@@ -224,9 +227,9 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
         />
         <button
           type="submit"
-          disabled={isLoading.value}
+          disabled={isLoading.value || !input.value.trim()}
           style={{
-            background: isLoading.value ? "#ccc" : "#333",
+            background: isLoading.value || !input.value.trim() ? "#ccc" : "#333",
             color: "white",
             border: "none",
             borderRadius: "50%",
@@ -235,7 +238,7 @@ export const CopilotChat = component$<CopilotChatProps>((props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            cursor: isLoading.value ? "not-allowed" : "pointer",
+            cursor: isLoading.value || !input.value.trim() ? "not-allowed" : "pointer",
             flexShrink: "0",
           }}
         >
