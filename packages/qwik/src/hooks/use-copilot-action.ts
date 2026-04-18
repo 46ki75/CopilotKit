@@ -48,9 +48,7 @@ export interface UseCopilotActionOptions {
  * });
  * ```
  */
-export function useCopilotAction(
-  options: UseCopilotActionOptions,
-): void {
+export function useCopilotAction(options: UseCopilotActionOptions): void {
   const ctx = useContext(CopilotKitContextId);
   const registered = useSignal(false);
 

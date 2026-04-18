@@ -3,16 +3,12 @@ import type { Parameter } from "@copilotkit/shared";
 /**
  * The availability of a frontend action.
  */
-export type FrontendActionAvailability =
-  | "enabled"
-  | "disabled";
+export type FrontendActionAvailability = "enabled" | "disabled";
 
 /**
  * Represents a frontend action that can be called by the AI Copilot.
  */
-export interface FrontendAction<
-  T extends Parameter[] | [] = [],
-> {
+export interface FrontendAction<T extends Parameter[] | [] = []> {
   /**
    * The name of the action.
    */

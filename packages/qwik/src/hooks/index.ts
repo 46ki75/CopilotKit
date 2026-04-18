@@ -23,7 +23,4 @@ export {
   type AgentContextInput,
   type JsonSerializable,
 } from "./use-agent-context";
-export {
-  useFrontendTool,
-  type FrontendToolConfig,
-} from "./use-frontend-tool";
+export { useFrontendTool, type FrontendToolConfig } from "./use-frontend-tool";

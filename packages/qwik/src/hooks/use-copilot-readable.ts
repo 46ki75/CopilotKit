@@ -48,9 +48,7 @@ export interface UseCopilotReadableOptions {
  * });
  * ```
  */
-export function useCopilotReadable(
-  options: UseCopilotReadableOptions,
-): void {
+export function useCopilotReadable(options: UseCopilotReadableOptions): void {
   const ctx = useContext(CopilotKitContextId);
   const ctxIdRef = useSignal<string | undefined>(undefined);
 
