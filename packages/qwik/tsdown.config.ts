@@ -12,6 +12,7 @@ export default defineConfig([
       "@builder.io/qwik",
       "@copilotkit/core",
       "@copilotkit/shared",
+      "@ag-ui/client",
     ],
   },
 ]);

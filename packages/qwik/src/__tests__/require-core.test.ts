@@ -7,9 +7,7 @@ import type { Signal } from "@builder.io/qwik";
  * Creates a minimal mock of `CopilotKitContextValue` for unit-testing
  * `requireCore`. We only need the `coreRef` signal shape.
  */
-function createMockContext(
-  coreValue: unknown,
-): CopilotKitContextValue {
+function createMockContext(coreValue: unknown): CopilotKitContextValue {
   return {
     coreRef: { value: coreValue } as Signal<any>,
     isLoading: { value: false } as Signal<boolean>,
