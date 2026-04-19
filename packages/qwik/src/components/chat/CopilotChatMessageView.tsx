@@ -95,7 +95,7 @@ export const CopilotChatMessageView = component$<CopilotChatMessageViewProps>(
                       }}
                     >
                       {typeof activityMessage.content === "string"
-                        ? (activityMessage.content as unknown as string)
+                        ? activityMessage.content
                         : JSON.stringify(activityMessage.content)}
                     </div>
                   )}
