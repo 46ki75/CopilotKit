@@ -17,7 +17,8 @@ type DefaultRenderProps = {
  *
  * This is the Qwik equivalent of `useDefaultRenderTool` from `@copilotkit/react-core`.
  *
- * - Call with no config to use a built-in default tool-call card.
+ * - Call with no config to use a built-in default tool-call card with a
+ *   native `<details>` expand/collapse for arguments and result panels.
  * - Pass `config.render` to replace the default UI with your own fallback renderer.
  */
 export function useDefaultRenderTool(config?: {
@@ -46,7 +47,7 @@ function defaultToolCallRenderer({
 
   return (
     <div style={{ marginTop: "8px", paddingBottom: "8px" }}>
-      <div
+      <details
         style={{
           borderRadius: "12px",
           border: "1px solid #e4e4e7",
@@ -54,12 +55,14 @@ function defaultToolCallRenderer({
           padding: "14px 16px",
         }}
       >
-        <div
+        <summary
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             gap: "10px",
+            cursor: "pointer",
+            listStyle: "none",
           }}
         >
           <div
@@ -116,7 +119,7 @@ function defaultToolCallRenderer({
           >
             {statusLabel}
           </span>
-        </div>
+        </summary>
         <div style={{ marginTop: "12px", display: "grid", gap: "12px" }}>
           <div>
             <div
@@ -181,7 +184,7 @@ function defaultToolCallRenderer({
             </div>
           )}
         </div>
-      </div>
+      </details>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { CopilotKitContextId } from "../context/copilot-context";
 import { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";
 import type { CopilotKitCoreQwik } from "../lib/qwik-core";
 import type { QwikCustomMessageRendererPosition } from "../types/qwik-custom-message-renderer";
+import { getThreadClone } from "../lib/thread-clone";
 
 interface UseRenderCustomMessagesParams {
   message: Message;
@@ -53,7 +54,11 @@ export function useRenderCustomMessages():
       core.getRunIdForMessage(agentId, threadId, message.id) ??
       core.getRunIdsForThread(agentId, threadId).slice(-1)[0];
     const runId = resolvedRunId ?? `missing-run-id:${message.id}`;
-    const agent = core.getAgent(agentId);
+
+    // Prefer the per-thread clone so that agent.messages reflects the actual
+    // conversation state (messages live on the clone, not the registry agent).
+    const registryAgent = core.getAgent(agentId);
+    const agent = getThreadClone(registryAgent, threadId) ?? registryAgent;
     if (!agent) {
       return null;
     }

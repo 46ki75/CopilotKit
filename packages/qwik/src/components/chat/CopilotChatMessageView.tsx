@@ -9,6 +9,8 @@ import type {
 import { CopilotChatAssistantMessage } from "./CopilotChatAssistantMessage";
 import { CopilotChatUserMessage } from "./CopilotChatUserMessage";
 import { CopilotChatReasoningMessage } from "./CopilotChatReasoningMessage";
+import { useRenderCustomMessages } from "../../hooks/use-render-custom-messages";
+import { useRenderActivityMessage } from "../../hooks/use-render-activity-message";
 
 export interface CopilotChatMessageViewProps {
   messages: readonly Message[];
@@ -18,6 +20,9 @@ export interface CopilotChatMessageViewProps {
 
 export const CopilotChatMessageView = component$<CopilotChatMessageViewProps>(
   (props) => {
+    const renderCustomMessages = useRenderCustomMessages();
+    const { renderActivityMessage } = useRenderActivityMessage();
+
     const messages = props.messages;
 
     if (messages.length === 0) {
@@ -32,50 +37,72 @@ export const CopilotChatMessageView = component$<CopilotChatMessageViewProps>(
         style={{ padding: "16px" }}
       >
         {messages.map((message) => {
+          const beforeCustom =
+            renderCustomMessages?.({ message, position: "before" }) ?? null;
+          const afterCustom =
+            renderCustomMessages?.({ message, position: "after" }) ?? null;
+
           switch (message.role) {
             case "assistant":
               return (
-                <CopilotChatAssistantMessage
-                  key={message.id}
-                  message={message as AssistantMessage}
-                  messages={messages as Message[]}
-                  isRunning={props.isRunning}
-                />
+                <div key={message.id}>
+                  {beforeCustom}
+                  <CopilotChatAssistantMessage
+                    message={message as AssistantMessage}
+                    messages={messages as Message[]}
+                    isRunning={props.isRunning}
+                  />
+                  {afterCustom}
+                </div>
               );
             case "user":
               return (
-                <CopilotChatUserMessage
-                  key={message.id}
-                  message={message as UserMessage}
-                />
+                <div key={message.id}>
+                  {beforeCustom}
+                  <CopilotChatUserMessage
+                    message={message as UserMessage}
+                  />
+                  {afterCustom}
+                </div>
               );
             case "reasoning":
               return (
-                <CopilotChatReasoningMessage
-                  key={message.id}
-                  message={message as ReasoningMessageType}
-                  messages={messages as Message[]}
-                  isRunning={props.isRunning}
-                />
-              );
-            case "activity":
-              return (
-                <div
-                  key={message.id}
-                  data-testid="copilot-activity-message"
-                  style={{
-                    fontSize: "13px",
-                    color: "#999",
-                    padding: "4px 0",
-                    fontStyle: "italic",
-                  }}
-                >
-                  {typeof (message as ActivityMessage).content === "string"
-                    ? ((message as ActivityMessage)
-                        .content as unknown as string)
-                    : JSON.stringify((message as ActivityMessage).content)}
+                <div key={message.id}>
+                  {beforeCustom}
+                  <CopilotChatReasoningMessage
+                    message={message as ReasoningMessageType}
+                    messages={messages as Message[]}
+                    isRunning={props.isRunning}
+                  />
+                  {afterCustom}
                 </div>
               );
+            case "activity": {
+              const activityMessage = message as ActivityMessage;
+              const customRendered =
+                renderActivityMessage(activityMessage);
+              return (
+                <div key={message.id}>
+                  {beforeCustom}
+                  {customRendered ?? (
+                    <div
+                      data-testid="copilot-activity-message"
+                      style={{
+                        fontSize: "13px",
+                        color: "#999",
+                        padding: "4px 0",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      {typeof activityMessage.content === "string"
+                        ? (activityMessage.content as unknown as string)
+                        : JSON.stringify(activityMessage.content)}
+                    </div>
+                  )}
+                  {afterCustom}
+                </div>
+              );
+            }
             case "tool":
               // Tool messages rendered by assistant messages
               return null;

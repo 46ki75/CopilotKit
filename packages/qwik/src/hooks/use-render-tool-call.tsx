@@ -29,6 +29,10 @@ export function useRenderToolCall(): (
   const renderToolCallsSig = useSignal<Readonly<QwikToolCallRenderer<any>[]>>(
     [],
   );
+  // Set of tool call IDs that are currently executing (awaiting user response
+  // in HITL scenarios). When a tool call is in this set its status is
+  // ToolCallStatus.Executing rather than ToolCallStatus.InProgress.
+  const executingToolCallIdsSig = useSignal<ReadonlySet<string>>(new Set());
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track, cleanup }) => {
@@ -42,6 +46,17 @@ export function useRenderToolCall(): (
     const subscription = core.subscribe({
       onRenderToolCallsChanged: ({ renderToolCalls }) => {
         renderToolCallsSig.value = renderToolCalls;
+      },
+      onToolExecutionStart: ({ toolCallId }) => {
+        executingToolCallIdsSig.value = new Set([
+          ...executingToolCallIdsSig.value,
+          toolCallId,
+        ]);
+      },
+      onToolExecutionEnd: ({ toolCallId }) => {
+        const next = new Set(executingToolCallIdsSig.value);
+        next.delete(toolCallId);
+        executingToolCallIdsSig.value = next;
       },
     });
 
@@ -79,6 +94,16 @@ export function useRenderToolCall(): (
           args={args}
           status={ToolCallStatus.Complete}
           result={toolMessage.content}
+        />
+      );
+    } else if (executingToolCallIdsSig.value.has(toolCall.id)) {
+      return (
+        <RenderComponent
+          name={toolName}
+          toolCallId={toolCall.id}
+          args={args}
+          status={ToolCallStatus.Executing}
+          result={undefined}
         />
       );
     } else {

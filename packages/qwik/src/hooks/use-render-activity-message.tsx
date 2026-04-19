@@ -6,6 +6,7 @@ import { CopilotKitContextId } from "../context/copilot-context";
 import { useCopilotChatConfiguration } from "../context/copilot-chat-configuration-context";
 import type { CopilotKitCoreQwik } from "../lib/qwik-core";
 import type { QwikActivityMessageRenderer } from "../types/qwik-activity-message-renderer";
+import { getThreadClone } from "../lib/thread-clone";
 
 export interface UseRenderActivityMessageReturn {
   findRenderer: (
@@ -23,6 +24,7 @@ export function useRenderActivityMessage(): UseRenderActivityMessageReturn {
   const ctx = useContext(CopilotKitContextId);
   const chatConfig = useCopilotChatConfiguration();
   const agentId = chatConfig?.agentId ?? DEFAULT_AGENT_ID;
+  const threadId = chatConfig?.threadId;
 
   const findRenderer = (
     activityType: string,
@@ -68,7 +70,10 @@ export function useRenderActivityMessage(): UseRenderActivityMessageReturn {
     const RenderComponent = renderer.render;
 
     const core = ctx.coreRef.value as CopilotKitCoreQwik | undefined;
-    const agent = core?.getAgent(agentId);
+    // Prefer the per-thread clone so that action handlers in the renderer
+    // call runAgent on the same agent instance that the chat displays from.
+    const registryAgent = core?.getAgent(agentId);
+    const agent = getThreadClone(registryAgent, threadId) ?? registryAgent;
 
     return (
       <RenderComponent

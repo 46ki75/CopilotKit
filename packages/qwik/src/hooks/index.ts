@@ -15,6 +15,9 @@ export {
 // v2 API
 export {
   useAgent,
+  UseAgentUpdate,
+  getThreadClone,
+  globalThreadCloneMap,
   type UseAgentOptions,
   type UseAgentReturn,
 } from "./use-agent";
