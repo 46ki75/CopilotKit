@@ -59,9 +59,7 @@ export const CopilotChatMessageView = component$<CopilotChatMessageViewProps>(
               return (
                 <div key={message.id}>
                   {beforeCustom}
-                  <CopilotChatUserMessage
-                    message={message as UserMessage}
-                  />
+                  <CopilotChatUserMessage message={message as UserMessage} />
                   {afterCustom}
                 </div>
               );
@@ -79,8 +77,7 @@ export const CopilotChatMessageView = component$<CopilotChatMessageViewProps>(
               );
             case "activity": {
               const activityMessage = message as ActivityMessage;
-              const customRendered =
-                renderActivityMessage(activityMessage);
+              const customRendered = renderActivityMessage(activityMessage);
               return (
                 <div key={message.id}>
                   {beforeCustom}
